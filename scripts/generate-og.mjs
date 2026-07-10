@@ -78,6 +78,11 @@ async function run() {
   const bossTpl = fs.readFileSync(path.join(TEMPLATE_DIR, "boss.svg"), "utf-8");
   const mechTpl = fs.readFileSync(path.join(TEMPLATE_DIR, "mechanics.svg"), "utf-8");
   const patchTpl = fs.readFileSync(path.join(TEMPLATE_DIR, "patch.svg"), "utf-8");
+  const defaultTpl = fs.readFileSync(path.join(TEMPLATE_DIR, "default.svg"), "utf-8");
+
+  // ---- Default (fallback for pages with no dedicated template, e.g. /about/, /privacy-policy/) ----
+  // 静态模板，没有 {{}} 占位符要填，直接原样渲染即可
+  renderPng(defaultTpl, path.join(OUT_DIR, "default.png"));
 
   // ---- Builds ----
   for (const file of await fg("src/content/builds/**/*.md")) {

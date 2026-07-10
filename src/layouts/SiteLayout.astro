@@ -9,6 +9,7 @@ interface Props {
 }
 const { title, description, ogImage = "/og/default.png" } = Astro.props;
 const siteName = "PoE2 Hub";
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 <!doctype html>
 <html lang="en">
@@ -17,11 +18,13 @@ const siteName = "PoE2 Hub";
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title} | {siteName}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
 
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -61,8 +64,12 @@ const siteName = "PoE2 Hub";
     </main>
 
     <footer class="site-footer">
-      <div class="container">
+      <div class="container footer-inner">
         <p>Content is updated to track current PoE2 patches. Check the version note on each page.</p>
+        <nav class="footer-nav">
+          <a href="/about/">About</a>
+          <a href="/privacy-policy/">Privacy Policy</a>
+        </nav>
       </div>
     </footer>
   </body>
@@ -100,4 +107,14 @@ const siteName = "PoE2 Hub";
     font-size: 0.85rem;
     padding: var(--space-3) 0;
   }
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+  .footer-nav { display: flex; gap: var(--space-2); }
+  .footer-nav a { color: var(--text-faint); }
+  .footer-nav a:hover { color: var(--accent-verdigris-bright); }
 </style>

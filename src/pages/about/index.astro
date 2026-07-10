@@ -1,0 +1,62 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "PoE2 Hub",
+  url: "https://poe2hub.net",
+};
+---
+<SiteLayout
+  title="About PoE2 Hub"
+  description="PoE2 Hub is a community guide site for Path of Exile 2, covering build guides, boss fight breakdowns, league mechanics, and free tools like the Build Planner and Chromatic Orb Calculator."
+>
+  <h1>About PoE2 Hub</h1>
+
+  <h2>What is PoE2 Hub</h2>
+  <p>
+    PoE2 Hub is a community guide platform for Path of Exile 2. We put together build guides,
+    boss fight breakdowns, league mechanic explainers, and practical tools, cross-checked
+    against official sources and established community guides rather than assembled from
+    guesswork. The goal is straightforward: give players a direct answer without wading through
+    ten tabs of forum threads to get there.
+  </p>
+
+  <h2>Our Tools</h2>
+  <ul>
+    <li><strong><a href="/build-planner/">Build Planner</a></strong> — pick your class and Ascendancy, get an instant gear, gem, and passive tree recommendation.</li>
+    <li><strong><a href="/chromatic-calculator/">Chromatic Orb Calculator</a></strong> — exact probability and expected orb cost for any socket color combination.</li>
+    <li><strong><a href="/loot-filter-generator/">Loot Filter Generator</a></strong> — answer a few questions, get a working .filter file, no syntax knowledge required.</li>
+  </ul>
+
+  <h2>Content Coverage</h2>
+  <p>
+    As of the current patch, PoE2 Hub covers 13 boss fight guides, 22 build guides across every
+    live Ascendancy, and 10 in-depth league mechanic breakdowns, alongside a class guide, trade
+    guide, unique item reference, and skill gem reference. Content is updated to track current
+    patches, each page carries a version note showing what it was last checked against.
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    Questions, corrections, or feedback: <a href="mailto:cdomiy@gmail.com">cdomiy@gmail.com</a>
+  </p>
+
+  <h2>Disclaimer</h2>
+  <p>
+    PoE2 Hub is an independent fan-run site and is not affiliated with or endorsed by Grinding
+    Gear Games. Path of Exile 2 is a registered trademark of Grinding Gear Games. All game
+    content, item names, and artwork referenced on this site remain the property of their
+    respective owners.
+  </p>
+
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+</SiteLayout>
+
+<style>
+  h2 { margin-top: var(--space-3); }
+  ul { color: var(--text-dim); padding-left: 1.2em; }
+  li { margin-bottom: 0.5em; }
+  p { color: var(--text-dim); line-height: 1.75; }
+</style>

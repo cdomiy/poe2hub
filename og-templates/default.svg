@@ -1,0 +1,25 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bgGlowGold" cx="20%" cy="85%" r="55%">
+      <stop offset="0%" stop-color="#c9a24b" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#c9a24b" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bgGlowVerdigris" cx="80%" cy="15%" r="55%">
+      <stop offset="0%" stop-color="#5c8577" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#5c8577" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="#16130f"/>
+  <rect width="1200" height="630" fill="url(#bgGlowGold)"/>
+  <rect width="1200" height="630" fill="url(#bgGlowVerdigris)"/>
+  <rect x="24" y="24" width="1152" height="582" fill="none" stroke="#3a3226" stroke-width="1.5"/>
+
+  <text x="60" y="280" font-family="Cinzel" font-size="72" font-weight="600" fill="#c9a24b">PoE2 Hub</text>
+  <text x="60" y="335" font-family="Inter" font-size="24" fill="#a89e88" letter-spacing="1">
+    PATH OF EXILE 2 BUILDS, BOSSES &amp; MECHANICS
+  </text>
+
+  <line x1="60" y1="480" x2="1140" y2="480" stroke="#3a3226" stroke-width="1"/>
+  <text x="60" y="520" font-family="IBM Plex Mono" font-size="18" fill="#a89e88">Build Guides · Boss Fight Breakdowns · Free Tools</text>
+</svg>
