@@ -1,0 +1,283 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import FaqAccordion from "../../components/FaqAccordion.astro";
+
+const faqs = [
+  {
+    q: "How does the Chromatic Orb formula work in PoE2?",
+    a: "Each socket's color is rolled independently based on weights derived from the item's Strength, Dexterity, and Intelligence requirements, plus a small constant. Using a Chromatic Orb re-rolls all sockets on the item at once, not one at a time.",
+  },
+  {
+    q: "Why are off-color sockets so hard to get?",
+    a: "If an item's attribute requirements are heavily weighted toward one color (for example a pure Strength item), the other two colors become statistically rare, since the weight constant is fixed and small relative to high requirement values.",
+  },
+  {
+    q: "Is there a crafting bench recipe for socket colors in PoE2?",
+    a: "No. Unlike PoE1's Vorici bench recipes, PoE2 currently has no deterministic crafting option for socket colors — Chromatic Orbs are the only way, which is exactly why the expected-cost math on this page matters.",
+  },
+];
+---
+<SiteLayout
+  title="Chromatic Orb Calculator"
+  description="Calculate the exact probability and expected Chromatic Orb cost for any socket color combination in Path of Exile 2."
+>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "PoE2 Chromatic Orb Calculator",
+    "url": "https://poe2hub.net/chromatic-calculator/",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Web",
+    "description": "Calculate the exact probability and expected Chromatic Orb cost for any socket color combination in Path of Exile 2."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Calculate Socket Colors in Path of Exile 2",
+    "description": "Use the Chromatic Calculator to determine the probability of rolling desired socket colors on your gear.",
+    "step": [
+      {"@type": "HowToStep", "name": "Enter socket count", "text": "Input the total number of sockets on your item."},
+      {"@type": "HowToStep", "name": "Set desired colors", "text": "Specify how many Strength (red), Dexterity (green), and Intelligence (blue) sockets you need."},
+      {"@type": "HowToStep", "name": "Get results", "text": "View the probability and average chromatic orbs needed."}
+    ]
+  }
+  </script>
+  <p class="version-flag">Formula verified against community sample data · PoE2 patch 0.5.4b</p>
+  <h1>PoE2 Chromatic Orb Calculator</h1>
+  <p class="intro">
+    Enter your item's attribute requirements and target socket colors. This uses the exact
+    closed-form probability (multinomial distribution), not a rough simulation — the expected
+    orb count and 95% confidence figure are mathematically exact given the weight model below.
+  </p>
+
+  <div class="calc-grid">
+    <div class="panel">
+      <h3>Item Requirements</h3>
+      <label class="field">
+        <span>Strength requirement</span>
+        <input type="number" id="str-req" min="0" value="0" />
+      </label>
+      <label class="field">
+        <span>Dexterity requirement</span>
+        <input type="number" id="dex-req" min="0" value="0" />
+      </label>
+      <label class="field">
+        <span>Intelligence requirement</span>
+        <input type="number" id="int-req" min="0" value="200" />
+      </label>
+
+      <h3>Sockets</h3>
+      <label class="field">
+        <span>Total sockets</span>
+        <input type="number" id="socket-count" min="1" max="6" value="6" />
+      </label>
+
+      <div id="socket-selector" class="socket-row"></div>
+      <p class="hint">Click a socket to cycle its target color: Red → Green → Blue.</p>
+    </div>
+
+    <div class="panel result-panel">
+      <h3>Result</h3>
+      <div class="result-big">
+        <span id="result-expected">—</span>
+        <span class="result-label">expected Chromatic Orbs</span>
+      </div>
+      <div class="result-row"><span class="k">Single-try probability</span><span id="result-prob" class="mono">—</span></div>
+      <div class="result-row"><span class="k">95% within</span><span id="result-ci" class="mono">—</span></div>
+      <p id="result-note" class="note"></p>
+    </div>
+  </div>
+
+  <h2>How the weight model works</h2>
+  <p>
+    Each color's weight is the item's corresponding attribute requirement plus a constant
+    (community-derived value of <strong>4</strong>). The probability of any single socket
+    rolling a given color is that color's weight divided by the sum of all three weights.
+    Because a full re-roll changes every socket at once, the number of orbs needed follows a
+    geometric distribution — expected orbs = 1 ÷ (probability of your exact target combination
+    in one try).
+  </p>
+  <p class="disclaimer">
+    ⚠️ This weight model is reverse-engineered by the community from large sample sizes, not
+    officially documented by GGG, and PoE2's exact constant hasn't been independently
+    re-verified at the same scale as PoE1's. Treat results as a strong estimate, not a guarantee.
+  </p>
+
+  <FaqAccordion faqs={faqs} />
+</SiteLayout>
+
+<script>
+  const strInput = document.getElementById("str-req") as HTMLInputElement;
+  const dexInput = document.getElementById("dex-req") as HTMLInputElement;
+  const intInput = document.getElementById("int-req") as HTMLInputElement;
+  const socketCountInput = document.getElementById("socket-count") as HTMLInputElement;
+  const socketRow = document.getElementById("socket-selector") as HTMLDivElement;
+
+  const COLORS = ["R", "G", "B"] as const;
+  const COLOR_HEX: Record<string, string> = {
+    R: "#b0492f",
+    G: "#5c8577",
+    B: "#6f9fd8",
+  };
+
+  let sockets: string[] = [];
+
+  function renderSockets() {
+    const count = Math.max(1, Math.min(6, Number(socketCountInput.value) || 1));
+    if (sockets.length !== count) {
+      sockets = Array.from({ length: count }, (_, i) => sockets[i] ?? "R");
+    }
+    socketRow.innerHTML = "";
+    sockets.forEach((color, i) => {
+      const el = document.createElement("button");
+      el.type = "button";
+      el.className = "socket-dot";
+      el.style.background = COLOR_HEX[color];
+      el.textContent = color;
+      el.addEventListener("click", () => {
+        const idx = COLORS.indexOf(color as any);
+        sockets[i] = COLORS[(idx + 1) % 3];
+        renderSockets();
+        calculate();
+      });
+      socketRow.appendChild(el);
+    });
+    calculate();
+  }
+
+  function factorial(n: number): number {
+    let r = 1;
+    for (let i = 2; i <= n; i++) r *= i;
+    return r;
+  }
+
+  function calculate() {
+    const str = Math.max(0, Number(strInput.value) || 0);
+    const dex = Math.max(0, Number(dexInput.value) || 0);
+    const int = Math.max(0, Number(intInput.value) || 0);
+    const CONST = 4;
+
+    const wR = str + CONST;
+    const wG = dex + CONST;
+    const wB = int + CONST;
+    const total = wR + wG + wB;
+
+    const pr = wR / total;
+    const pg = wG / total;
+    const pb = wB / total;
+
+    const r = sockets.filter((c) => c === "R").length;
+    const g = sockets.filter((c) => c === "G").length;
+    const b = sockets.filter((c) => c === "B").length;
+    const n = sockets.length;
+
+    const coeff = factorial(n) / (factorial(r) * factorial(g) * factorial(b));
+    const probability = coeff * Math.pow(pr, r) * Math.pow(pg, g) * Math.pow(pb, b);
+
+    const expectedEl = document.getElementById("result-expected")!;
+    const probEl = document.getElementById("result-prob")!;
+    const ciEl = document.getElementById("result-ci")!;
+    const noteEl = document.getElementById("result-note")!;
+
+    if (probability <= 0 || !isFinite(probability)) {
+      expectedEl.textContent = "—";
+      probEl.textContent = "0%";
+      ciEl.textContent = "—";
+      noteEl.textContent = "This exact combination is effectively unreachable with the given requirements.";
+      return;
+    }
+
+    const expected = 1 / probability;
+    const ci95 = Math.ceil(Math.log(0.05) / Math.log(1 - probability));
+
+    expectedEl.textContent = expected >= 1000 ? Math.round(expected).toLocaleString() : expected.toFixed(1);
+    probEl.textContent = (probability * 100).toPrecision(3) + "%";
+    ciEl.textContent = `${ci95} orbs`;
+
+    if (probability < 0.005) {
+      noteEl.textContent = "Very low odds — this combination fights hard against your item's attribute weighting. Consider a different base item if possible.";
+    } else if (probability > 0.3) {
+      noteEl.textContent = "Good odds — this combination is well-aligned with your item's natural color weighting.";
+    } else {
+      noteEl.textContent = "Moderate odds — budget a reasonable stack of Chromatic Orbs before starting.";
+    }
+  }
+
+  socketCountInput.addEventListener("input", renderSockets);
+  [strInput, dexInput, intInput].forEach((el) => el.addEventListener("input", calculate));
+
+  renderSockets();
+</script>
+
+<style>
+  .intro { color: var(--text-dim); }
+  .calc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+    margin: var(--space-3) 0;
+  }
+  .panel {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-sm);
+    padding: var(--space-2) var(--space-3);
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    margin-bottom: var(--space-1);
+    font-size: 0.9rem;
+    color: var(--text-dim);
+  }
+  .field input {
+    background: var(--bg-inset);
+    border: 1px solid var(--border-hairline);
+    color: var(--text);
+    padding: 0.4em 0.6em;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+  }
+  .socket-row { display: flex; gap: 0.5rem; margin: var(--space-1) 0; flex-wrap: wrap; }
+  .socket-dot {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    border: 2px solid var(--border-hairline);
+    color: #16130f;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .hint { font-size: 0.8rem; color: var(--text-faint); }
+
+  .result-panel { display: flex; flex-direction: column; }
+  .result-big {
+    text-align: center;
+    padding: var(--space-2) 0;
+  }
+  .result-big span:first-child {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 3rem;
+    color: var(--accent-gold);
+  }
+  .result-label { font-size: 0.85rem; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.06em; }
+  .result-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-top: 1px solid var(--border-hairline);
+    font-size: 0.92rem;
+    color: var(--text-dim);
+  }
+  .note { margin-top: var(--space-2); font-size: 0.88rem; color: var(--accent-verdigris-bright); }
+  .disclaimer { font-size: 0.85rem; color: var(--text-faint); border-left: 2px solid var(--accent-rust); padding-left: 0.8em; }
+
+  @media (max-width: 640px) {
+    .calc-grid { grid-template-columns: 1fr; }
+  }
+</style>

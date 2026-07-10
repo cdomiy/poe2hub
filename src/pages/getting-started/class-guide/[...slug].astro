@@ -1,0 +1,58 @@
+---
+import { getCollection, getEntry } from "astro:content";
+import SiteLayout from "../../../layouts/SiteLayout.astro";
+import RelatedGrid from "../../../components/RelatedGrid.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("classes");
+  return entries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const c = entry.data;
+
+const ascendancyBuilds = await Promise.all(
+  c.ascendancySlugs.map((ref: any) => getEntry(ref))
+);
+const relatedItems = ascendancyBuilds.filter(Boolean).map((b: any) => ({
+  kicker: `${b.data.tier} TIER · ${b.data.playstyle.toUpperCase()}`,
+  title: b.data.title,
+  href: `/builds/${b.slug}/`,
+}));
+---
+<SiteLayout
+  title={`${c.title} Class Guide`}
+  description={c.summary}
+>
+  <h1>{c.title}</h1>
+  <p class="class-meta mono">{c.attributeFocus} · {c.weaponType}</p>
+
+  <div class="tldr-box">
+    <h3>Overview</h3>
+    <p>{c.summary}</p>
+  </div>
+
+  <h2>Playstyle Notes</h2>
+  <ul>{c.playstyleNotes.map((n: string) => <li>{n}</li>)}</ul>
+
+  <h2>Good For</h2>
+  <ul>{c.goodFor.map((g: string) => <li>{g}</li>)}</ul>
+
+  <h2>Choosing an Ascendancy</h2>
+  <div class="prose"><Content /></div>
+
+  <RelatedGrid items={relatedItems} heading="Full build guides for each Ascendancy" />
+
+  <p class="back-link"><a href="/getting-started/class-guide/">← Back to all classes</a></p>
+</SiteLayout>
+
+<style>
+  .class-meta { color: var(--text-faint); font-size: 0.85rem; text-transform: uppercase; }
+  ul { color: var(--text-dim); }
+  .prose { color: var(--text-dim); line-height: 1.75; }
+  .back-link { margin-top: var(--space-3); font-size: 0.9rem; }
+</style>

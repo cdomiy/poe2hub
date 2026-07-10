@@ -1,0 +1,48 @@
+---
+import { getCollection } from "astro:content";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+
+const mechanics = await getCollection("mechanics");
+const sorted = [...mechanics].sort((a, b) => a.data.title.localeCompare(b.data.title));
+---
+<SiteLayout
+  title="PoE2 Mechanics Guides"
+  description="Evergreen breakdowns of Path of Exile 2's core systems and league mechanics, kept up to date across patches."
+>
+  <h1>Mechanics Guides</h1>
+  <p class="intro">
+    These pages are living documents — updated in place as patches change the underlying
+    systems, rather than rewritten from scratch each time. Check the version flag at the top
+    of each page for what it's currently aligned to.
+  </p>
+
+  <div class="mech-grid">
+    {sorted.map((m) => (
+      <a class="mech-card" href={`/mechanics/${m.slug}/`}>
+        <span class="mech-system mono">{m.data.system}</span>
+        <span class="mech-title">{m.data.title}</span>
+      </a>
+    ))}
+  </div>
+</SiteLayout>
+
+<style>
+  .intro { color: var(--text-dim); max-width: 640px; }
+  .mech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+  }
+  .mech-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-hairline);
+    border-left: 3px solid var(--accent-gold);
+    border-radius: var(--radius-sm);
+    padding: var(--space-2);
+    color: var(--text);
+  }
+  .mech-card:hover { border-color: var(--accent-gold); text-decoration: none; }
+  .mech-system { display: block; color: var(--text-faint); font-size: 0.78rem; text-transform: uppercase; }
+  .mech-title { display: block; font-family: var(--font-display); margin-top: 0.3rem; }
+</style>

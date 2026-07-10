@@ -1,0 +1,41 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import FaqAccordion from "../../components/FaqAccordion.astro";
+
+const faqs = [
+  {
+    q: "Does GGG allow cheats or third-party modification tools in PoE2?",
+    a: "No. Path of Exile 2's terms of use prohibit third-party software that modifies the game client, automates play, or gives an unfair gameplay advantage (bots, memory-reading overlays, packet manipulation, etc.). Accounts found using these tools risk suspension or permanent ban.",
+  },
+  {
+    q: "What third-party tools ARE allowed?",
+    a: "Tools that only read publicly available data or generate files you manually load yourself are generally treated as compliant — for example, loot filter files (.filter text files loaded through the game's own options menu), build planners that don't inject into the game process, and price-check sites that query public trade data. When in doubt, the safest rule is: if a tool touches the running game client's memory or automates input, it's against the rules; if it only produces a file you load through official in-game settings, it's normally fine.",
+  },
+  {
+    q: "Is using a Chromatic Orb calculator or Loot Filter generator considered cheating?",
+    a: "No — these are calculators and file generators that run entirely outside the game and don't modify the client or automate anything. You're doing the math or writing the filter file yourself; the tool just saves you the manual work.",
+  },
+  {
+    q: "Are there mods for PoE2 like there are for offline single-player games?",
+    a: "Path of Exile 2 is an always-online, server-authoritative game, so traditional client-side mods (the kind common in offline RPGs) aren't functionally possible for anything that affects core gameplay — the server controls drops, combat resolution, and progression.",
+  },
+];
+---
+<SiteLayout
+  title="PoE2 Cheats & Mods: What's Allowed"
+  description="What third-party tools are compliant vs against the rules in Path of Exile 2 — a plain-language guide to GGG's policy."
+>
+  <p class="version-flag">Policy reference, not legal advice · verify against the current PoE2 Terms of Use</p>
+  <h1>PoE2 Cheats & Mods: What's Actually Allowed</h1>
+  <p class="intro">
+    Short version: anything that modifies the game client or automates play is against the
+    rules and risks a ban. Tools that just calculate numbers or generate a file you load
+    yourself through the game's own menus are fine. Here's the breakdown.
+  </p>
+
+  <FaqAccordion faqs={faqs} />
+</SiteLayout>
+
+<style>
+  .intro { color: var(--text-dim); }
+</style>

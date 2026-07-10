@@ -1,0 +1,48 @@
+---
+import { getCollection } from "astro:content";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+
+const patches = await getCollection("patches");
+const sorted = [...patches].sort((a, b) => b.data.releaseDate.getTime() - a.data.releaseDate.getTime());
+---
+<SiteLayout
+  title="PoE2 News & Patch Notes"
+  description="Breakdowns of every Path of Exile 2 patch — what changed and how it affects your build."
+>
+  <h1>News & Patch Notes</h1>
+  <p class="intro">Every entry links out to the build or mechanics page it affects, so you're not just reading a changelog in isolation.</p>
+  <p class="roadmap-link"><a href="/news/roadmap/">→ See the full version history and 1.0 roadmap</a></p>
+
+  <div class="patch-list">
+    {sorted.map((p) => (
+      <a class="patch-row" href={`/news/patch-notes/${p.slug}/`}>
+        <span class="patch-version mono">{p.data.version}</span>
+        <span class="patch-title">{p.data.title}</span>
+        <span class="patch-date mono">{p.data.releaseDate.toISOString().slice(0,10)}</span>
+      </a>
+    ))}
+  </div>
+</SiteLayout>
+
+<style>
+  .intro { color: var(--text-dim); max-width: 640px; }
+  .roadmap-link { font-size: 0.92rem; }
+  .patch-list { margin-top: var(--space-3); }
+  .patch-row {
+    display: grid;
+    grid-template-columns: 90px 1fr 110px;
+    gap: var(--space-2);
+    align-items: center;
+    padding: var(--space-2);
+    border-bottom: 1px solid var(--border-hairline);
+    color: var(--text);
+  }
+  .patch-row:hover { background: var(--bg-elevated); text-decoration: none; }
+  .patch-version { color: var(--accent-rust-bright); font-size: 0.9rem; }
+  .patch-title { font-family: var(--font-display); }
+  .patch-date { color: var(--text-faint); font-size: 0.85rem; text-align: right; }
+  @media (max-width: 560px) {
+    .patch-row { grid-template-columns: 70px 1fr; }
+    .patch-date { display: none; }
+  }
+</style>

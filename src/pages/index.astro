@@ -1,0 +1,135 @@
+---
+import { getCollection } from "astro:content";
+import SiteLayout from "../layouts/SiteLayout.astro";
+
+const builds = await getCollection("builds");
+const sTierCount = builds.filter((b) => b.data.tier === "S").length;
+
+const patches = await getCollection("patches");
+const latestPatch = [...patches].sort((a, b) => b.data.releaseDate.getTime() - a.data.releaseDate.getTime())[0];
+---
+<SiteLayout
+  title="PoE2 Hub — Path of Exile 2 Builds, Guides & Tools"
+  description="Path of Exile 2 build guides, boss fight breakdowns, league mechanics explained, and free tools like the Chromatic Orb Calculator and Loot Filter Generator."
+>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "PoE2 Hub",
+    "url": "https://poe2hub.net",
+    "description": "Path of Exile 2 builds, tools, and guides for every exile.",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://poe2hub.net/faq/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+  <section class="hero">
+    <p class="version-flag">Tracking patch 0.5.4b · Runes of Aldur</p>
+    <h1>Path of Exile 2, without the guesswork.</h1>
+    <p class="hero-sub">
+      Build guides for every Ascendancy, phase-by-phase boss breakdowns, and free tools that
+      actually generate something real — not just another list of tips.
+    </p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="/builds/tier-list/">See the Build Tier List</a>
+      <a class="btn-secondary" href="/getting-started/">New here? Start guide</a>
+    </div>
+  </section>
+
+  {latestPatch && (
+    <section class="latest-patch">
+      <span class="mono">Latest: {latestPatch.data.version}</span>
+      <a href={`/news/patch-notes/${latestPatch.slug}/`}>{latestPatch.data.title} →</a>
+    </section>
+  )}
+
+  <section class="grid-section">
+    <a class="feature-card" href="/builds/tier-list/">
+      <h3>Build Tier List</h3>
+      <p>{sTierCount} S-tier builds ranked right now, across all 8 classes and every confirmed Ascendancy.</p>
+    </a>
+    <a class="feature-card" href="/bosses/">
+      <h3>Boss Guides</h3>
+      <p>Phase-by-phase breakdowns — what triggers each phase, and how not to die to it.</p>
+    </a>
+    <a class="feature-card" href="/mechanics/">
+      <h3>Mechanics</h3>
+      <p>Living pages for league mechanics and core systems, updated in place across patches.</p>
+    </a>
+    <a class="feature-card" href="/unique-items/">
+      <h3>Unique Items</h3>
+      <p>A curated, cross-checked list of the uniques that actually matter for build planning.</p>
+    </a>
+  </section>
+
+  <section class="grid-section">
+    <a class="feature-card tool" href="/chromatic-calculator/">
+      <h3>Chromatic Orb Calculator</h3>
+      <p>Exact probability and expected orb cost for any socket color combination — real math, not a guess.</p>
+    </a>
+    <a class="feature-card tool" href="/build-planner/">
+      <h3>Build Planner</h3>
+      <p>Pick your class and Ascendancy, get an instant gear/gem/passive recommendation — no PoB setup required.</p>
+    </a>
+    <a class="feature-card tool" href="/loot-filter-generator/">
+      <h3>Loot Filter Generator</h3>
+      <p>Answer 5 questions, get a working .filter file. No syntax knowledge required.</p>
+    </a>
+    <a class="feature-card tool" href="/trade-guide/">
+      <h3>Trade Guide</h3>
+      <p>The Currency Exchange, the Merchant's Tab, and direct trades — what each is actually for.</p>
+    </a>
+  </section>
+</SiteLayout>
+
+<style>
+  .hero { padding: var(--space-3) 0 var(--space-4); }
+  .hero h1 { font-size: clamp(2rem, 4vw, 3rem); max-width: 700px; }
+  .hero-sub { color: var(--text-dim); max-width: 560px; font-size: 1.05rem; }
+  .hero-actions { display: flex; gap: var(--space-2); margin-top: var(--space-3); flex-wrap: wrap; }
+  .btn-primary, .btn-secondary {
+    display: inline-block;
+    padding: 0.7em 1.4em;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+  }
+  .btn-primary { background: var(--accent-rust); color: #fff; }
+  .btn-primary:hover { text-decoration: none; background: var(--accent-rust-bright); }
+  .btn-secondary { border: 1px solid var(--border-hairline); color: var(--text-dim); }
+  .btn-secondary:hover { text-decoration: none; border-color: var(--accent-verdigris); color: var(--accent-verdigris-bright); }
+
+  .latest-patch {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-hairline);
+    border-left: 3px solid var(--accent-rust);
+    border-radius: var(--radius-sm);
+    padding: var(--space-1) var(--space-2);
+    margin-bottom: var(--space-4);
+    font-size: 0.92rem;
+  }
+  .latest-patch .mono { color: var(--accent-rust-bright); }
+
+  .grid-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+  }
+  .feature-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-sm);
+    padding: var(--space-2);
+    color: var(--text);
+  }
+  .feature-card:hover { border-color: var(--accent-verdigris); text-decoration: none; }
+  .feature-card.tool { border-left: 3px solid var(--accent-verdigris); }
+  .feature-card h3 { margin-top: 0; }
+  .feature-card p { color: var(--text-dim); font-size: 0.92rem; margin-bottom: 0; }
+</style>

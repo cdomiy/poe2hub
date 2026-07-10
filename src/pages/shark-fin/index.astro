@@ -1,0 +1,110 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import FaqAccordion from "../../components/FaqAccordion.astro";
+
+const faqs = [
+  {
+    q: "Is the Shark Fin quest choice permanent?",
+    a: "Yes. As of patch 0.5, Kaom's Lesson and Rakiata's Lesson are a one-time permanent choice — there's no NPC option to swap later, though some players have reported the fin can be re-picked up and the boss refought if you haven't turned it in yet.",
+  },
+  {
+    q: "Kaom's Lesson or Rakiata's Lesson — which should I pick?",
+    a: "Kaom's Lesson (flat +30% Armour, Evasion, and Energy Shield) is the safer, build-agnostic pick that scales with whatever defenses you already have. Rakiata's Lesson is more specialized — it converts existing defenses into secondary bonuses across damage types — and suits builds already committed to a specific defensive layer, like pure Armour or Energy Shield stacking.",
+  },
+  {
+    q: "What if Kaimana isn't where I expect her?",
+    a: "Her location is tied to your Act 4 main quest progress, not a bug — she moves from Ngakanu Island to the Karui Ship at Kingsmarch's southern dock as you clear more of the story.",
+  },
+  {
+    q: "Is this quest mandatory?",
+    a: "No, it's fully optional and doesn't block main story progression — but the permanent defensive bonus is strong enough that most guides recommend not skipping it.",
+  },
+];
+---
+<SiteLayout
+  title="Shark Fin / Tribal Medicine Quest Guide"
+  description="Where to find the Great White One, how to turn in the Shark Fin to Kaimana, and which Tribal Medicine reward to pick in Path of Exile 2."
+>
+  <p class="version-flag">Verified against patch 0.5.4b · Act 4 content</p>
+  <h1>Shark Fin (Tribal Medicine) Quest Guide</h1>
+  <p class="intro">
+    Tribal Medicine is an optional Act 4 side quest built around one boss fight and one
+    permanent, one-time reward choice. Here's the full path from finding the boss to picking
+    the right reward for your build.
+  </p>
+
+  <h2>Step 1 — Get the Shark Fin</h2>
+  <p>
+    The Shark Fin drops from the <strong>Great White One</strong>, an optional boss on
+    Whakapanu Island (Act 4). Look for the <strong>Shark Pit</strong>, a sandy open arena near
+    the shoreline — walking to the water's edge triggers the boss to emerge from the sand.
+  </p>
+  <div class="tldr-box">
+    <h3>Boss quick notes</h3>
+    <ul>
+      <li>Deals <strong>physical damage only</strong> — elemental resistances don't matter here</li>
+      <li>Weak to <strong>Lightning</strong> damage specifically</li>
+      <li>Sand-swim telegraph is visible as a ripple under the surface — stay mobile rather than tanking it</li>
+      <li>Bite damage can one-shot squishy builds around level 51 — movement speed boots make the fight much safer</li>
+    </ul>
+  </div>
+
+  <h2>Step 2 — Find Kaimana</h2>
+  <p>Kaimana's location depends on your Act 4 main quest progress:</p>
+  <table class="loc-table">
+    <thead><tr><th>Progress</th><th>Kaimana's location</th></tr></thead>
+    <tbody>
+      <tr><td>Before defeating Benedictus, First Herald</td><td>Karui Village, Ngakanu Island</td></tr>
+      <tr><td>After defeating Benedictus, First Herald</td><td>Medicine Circle, deep inside Ngakanu Island</td></tr>
+      <tr><td>After completing "The Search" quest</td><td>Karui Ship, southern dock of Kingsmarch</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Step 3 — Choose your reward</h2>
+  <div class="reward-grid">
+    <div class="reward-card">
+      <h3>Kaom's Lesson</h3>
+      <p>+30% increased Armour, Evasion, and Energy Shield.</p>
+      <p class="reward-fit">Best for: mixed defense builds, or anyone unsure of their final endgame defensive layer.</p>
+    </div>
+    <div class="reward-card">
+      <h3>Rakiata's Lesson</h3>
+      <p>15% of Armour also applies to Elemental damage · 12% of Evasion converts to Spell Suppression · 12% faster Energy Shield recharge start.</p>
+      <p class="reward-fit">Best for: pure Armour builds, Energy Shield builds, or anyone committed to one defensive layer already.</p>
+    </div>
+  </div>
+
+  <FaqAccordion faqs={faqs} />
+</SiteLayout>
+
+<style>
+  .intro { color: var(--text-dim); }
+  .loc-table { width: 100%; border-collapse: collapse; margin: var(--space-2) 0; }
+  .loc-table th, .loc-table td {
+    border: 1px solid var(--border-hairline);
+    padding: 0.6em 0.8em;
+    text-align: left;
+    font-size: 0.92rem;
+  }
+  .loc-table th { background: var(--bg-elevated); color: var(--accent-gold); }
+  .loc-table td { color: var(--text-dim); }
+
+  .reward-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2);
+    margin: var(--space-2) 0;
+  }
+  .reward-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-hairline);
+    border-left: 3px solid var(--accent-verdigris);
+    border-radius: var(--radius-sm);
+    padding: var(--space-2);
+  }
+  .reward-fit { color: var(--accent-verdigris-bright); font-size: 0.88rem; }
+
+  @media (max-width: 640px) {
+    .reward-grid { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,147 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import FaqAccordion from "../../components/FaqAccordion.astro";
+
+const faqs = [
+  {
+    q: "Are skills tied to my class in PoE2?",
+    a: "No — this is one of the biggest differences from the original Path of Exile. Skills in PoE2 are tied to the weapon you're holding, not your class, so any class can use any weapon-appropriate skill.",
+  },
+  {
+    q: "How do I get new skill gems?",
+    a: "You don't find finished gems as drops. Instead, monsters and quests drop Uncut Gems (Uncut Skill Gem, Uncut Spirit Gem, Uncut Support Gem), which you turn into a specific skill of your choice through the Gemcutting menu. The Uncut Gem's level determines what you can engrave or upgrade.",
+  },
+  {
+    q: "How many Support Gems can I link to one skill?",
+    a: "Up to 5 sockets per skill, though only 2-3 are available right away — unlocking the rest requires a specific item. Each Support Gem you link also raises that skill's attribute requirement by +5 in the corresponding stat.",
+  },
+  {
+    q: "What's the difference between Spirit Gems and Meta Gems?",
+    a: "Both reserve Spirit and function like persistent buffs. Spirit Gems are self-contained — they just apply their effect. Meta Gems have their own sockets where you slot in other Skill Gems, and they'll automatically trigger those slotted skills once a condition (tracked via an Energy meter) is met.",
+  },
+  {
+    q: "What are Lineage Gems?",
+    a: "Significantly more powerful Support Gems that only drop from Atlas endgame content, with some tied to specific bosses. They're a notch above regular supports and worth prioritizing once you're mapping.",
+  },
+];
+---
+<SiteLayout
+  title="PoE2 Skill Gems, Support Gems & Spirit Gems Explained"
+  description="How the skill gem system actually works in Path of Exile 2 — Skill Gems, Support Gems, Spirit Gems, Meta Gems, and how to get and upgrade them."
+>
+  <p class="version-flag">Covers the gem system as of patch 0.5.4b, including 0.5.0's Kalguuran skill additions</p>
+  <h1>PoE2 Skill Gems, Support Gems & Spirit Gems</h1>
+  <p class="intro">
+    PoE2's gem system looks familiar if you've played the original Path of Exile, but the details
+    changed enough that carrying over PoE1 assumptions will trip you up. Here's how it actually works.
+  </p>
+
+  <h2>The four gem types</h2>
+  <div class="gem-grid">
+    <div class="gem-card">
+      <h3>Skill Gems</h3>
+      <p>Your active abilities — spells and attacks. Tied to weapon type, not class, so what you can use depends on what you're holding, not who you're playing.</p>
+    </div>
+    <div class="gem-card">
+      <h3>Support Gems</h3>
+      <p>Modify a linked Skill Gem — extra damage, added effects, changed behavior. Up to 5 per skill, though you'll need to unlock sockets beyond the first 2-3. Each linked support adds +5 to that skill's relevant attribute requirement, and the same support gem can't be used on two skills at once.</p>
+    </div>
+    <div class="gem-card">
+      <h3>Spirit Gems</h3>
+      <p>Persistent buffs and auras, similar to PoE1 auras — they reserve Spirit (a separate resource pool) to stay active rather than being cast repeatedly.</p>
+    </div>
+    <div class="gem-card">
+      <h3>Meta Gems</h3>
+      <p>Advanced gems that also reserve Spirit, but have their own sockets for other Skill Gems. They auto-trigger the slotted skills once a condition is met, tracked through an Energy mechanic — for example, a Cast on Shock meta gem builds Energy every time you shock an enemy.</p>
+    </div>
+  </div>
+
+  <h2>How to actually get and upgrade gems</h2>
+  <ul>
+    <li>Gems don't drop pre-made — you get <strong>Uncut Gems</strong> (Skill / Spirit / Support) from monster drops and quest rewards.</li>
+    <li>The Uncut Gem's level determines what it can do: a level 7 Uncut Skill Gem can engrave a new level-7-or-lower skill, or upgrade an existing one up to level 7.</li>
+    <li>You must also meet the skill's character level requirement before engraving it, even if the gem itself is high-level enough.</li>
+    <li>Engraving consumes the Uncut Gem — if you want to try something else later, you'll need another one, so it's worth banking a few extras in your stash.</li>
+  </ul>
+
+  <h2>0.5.0's Kalguuran skills — the newest wrinkle</h2>
+  <p>
+    Return of the Ancients added a batch of Kalguuran skills tied to the new Runic Ward
+    resource. These are unusual in three ways: they cost Runic Ward instead of mana, they carry
+    <strong>no attribute requirements</strong>, and they ignore weapon restrictions — meaning
+    any class can slot them in regardless of gear investment. If you're specifically leaning into
+    the Runes of Aldur league mechanic, these are worth checking out early.
+  </p>
+
+  <h2>Notable named gems worth knowing</h2>
+  <p class="section-note">
+    A working reference, not a complete list — these are gems that come up repeatedly across
+    current build guides, organized by category.
+  </p>
+  <div class="named-gem-grid">
+    <div class="named-gem-col">
+      <h3>Popular Actives (cross-class)</h3>
+      <ul>
+        <li><strong>Twister / Whirling Slash</strong> — the spear combo usable by nearly any class, currently one of the most-played mechanics in the game.</li>
+        <li><strong>Spark / Arc / Ice Nova / Comet</strong> — Sorceress and Witch elemental staples, all viable primary damage skills from leveling into endgame.</li>
+        <li><strong>Bonestorm</strong> — a safe, ranged spell-totem option popular across multiple Witch ascendancies.</li>
+        <li><strong>Explosive Grenade / Cluster Grenade / Artillery Ballista</strong> — the core Mercenary/Warrior grenade and totem toolkit.</li>
+      </ul>
+    </div>
+    <div class="named-gem-col">
+      <h3>Persistent Buff / Spirit Gems</h3>
+      <ul>
+        <li><strong>Herald of Ash / Ice / Thunder</strong> — elemental buff auras that also add direct damage effects, a staple across many builds regardless of class.</li>
+        <li><strong>Determination / Clarity</strong> — defensive and resource-sustain auras carried over conceptually from the original Path of Exile.</li>
+        <li><strong>Meditate</strong> — the Monk Invoker's signature Energy Shield recharge channel.</li>
+      </ul>
+    </div>
+    <div class="named-gem-col">
+      <h3>Meta Gems</h3>
+      <ul>
+        <li><strong>Cast on Shock</strong> — builds Energy from shocking enemies, then auto-triggers its socketed skill.</li>
+        <li><strong>Cast on Critical</strong> — one of the most build-defining Meta Gems in the current patch, especially strong on Blood Mage, Stormweaver, and Gemling Legionnaire.</li>
+      </ul>
+    </div>
+    <div class="named-gem-col">
+      <h3>Lineage Gems (endgame-only)</h3>
+      <ul>
+        <li><strong>Uul-Netol's Embrace</strong> — drops from Xesht, the Breach pinnacle boss; adds physical-as-extra-chaos damage plus Armour Break to its supported skill.</li>
+        <li><strong>Zarokh's Refrain</strong> — drops exclusively from Zarokh, the Temporal in the Trial of the Sekhemas.</li>
+        <li>Most Lineage Gems are significantly stronger than regular Support Gems, but tied to a specific pinnacle boss drop rather than general Atlas farming.</li>
+      </ul>
+    </div>
+  </div>
+
+  <FaqAccordion faqs={faqs} />
+</SiteLayout>
+
+<style>
+  .intro { color: var(--text-dim); }
+  .section-note { color: var(--text-faint); font-size: 0.85rem; margin-top: -0.5rem; }
+  .named-gem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-3);
+    margin: var(--space-2) 0 var(--space-3);
+  }
+  .named-gem-col h3 { font-size: 1.05rem; }
+  .named-gem-col ul { color: var(--text-dim); padding-left: 1.2em; font-size: 0.92rem; }
+  .named-gem-col li { margin-bottom: 0.5em; }
+  .gem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-2);
+    margin: var(--space-2) 0 var(--space-3);
+  }
+  .gem-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-hairline);
+    border-left: 3px solid var(--accent-gold);
+    border-radius: var(--radius-sm);
+    padding: var(--space-2);
+  }
+  .gem-card h3 { margin-top: 0; }
+  .gem-card p { color: var(--text-dim); font-size: 0.92rem; margin-bottom: 0; }
+  ul { color: var(--text-dim); }
+</style>

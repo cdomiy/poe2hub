@@ -1,0 +1,29 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bgGlowGold" cx="20%" cy="85%" r="55%">
+      <stop offset="0%" stop-color="#c9a24b" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#c9a24b" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="#16130f"/>
+  <rect width="1200" height="630" fill="url(#bgGlowGold)"/>
+  <rect x="24" y="24" width="1152" height="582" fill="none" stroke="#3a3226" stroke-width="1.5"/>
+
+  <text x="60" y="90" font-family="Cinzel" font-size="30" font-weight="600" fill="#c9a24b">PoE2 Hub</text>
+
+  <!-- 常青更新标签，复用站内version-flag视觉 -->
+  <rect x="60" y="110" width="230" height="34" rx="2" fill="none" stroke="#c9a24b" stroke-width="1.2"/>
+  <text x="76" y="133" font-family="IBM Plex Mono" font-size="15" fill="#c9a24b">Living Doc · {{PATCH}}</text>
+
+  <text x="60" y="200" font-family="Inter" font-size="16" fill="#6f6656" letter-spacing="2">MECHANICS · {{SYSTEM}}</text>
+
+  <foreignObject x="60" y="240" width="900" height="220">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="font-family:Cinzel,serif; font-size:54px; font-weight:600; color:#e4dcc8; line-height:1.25;">
+      {{TITLE}}
+    </div>
+  </foreignObject>
+
+  <line x1="60" y1="500" x2="1140" y2="500" stroke="#3a3226" stroke-width="1"/>
+  <text x="60" y="540" font-family="IBM Plex Mono" font-size="18" fill="#a89e88">Mechanics Guide · Updated Across Patches</text>
+</svg>

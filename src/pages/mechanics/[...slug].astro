@@ -1,0 +1,40 @@
+---
+import { getCollection, getEntry } from "astro:content";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import ChangelogTimeline from "../../components/ChangelogTimeline.astro";
+import RelatedGrid from "../../components/RelatedGrid.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("mechanics");
+  return entries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const m = entry.data;
+const ogImage = `/og/mechanics/${entry.slug.replaceAll("/", "-")}.png`;
+
+const relatedBuilds = await Promise.all(
+  m.relatedBuilds.map((ref: any) => getEntry(ref))
+);
+const relatedItems = relatedBuilds.filter(Boolean).map((r: any) => ({
+  kicker: "RELATED BUILD", title: r.data.title, href: `/builds/${r.slug}/`,
+}));
+---
+<SiteLayout title={m.title} description={`${m.system} mechanic breakdown and practical tips`} ogImage={ogImage}>
+  <ChangelogTimeline currentPatch={m.currentPatch} changelog={m.changelog} />
+
+  <h1>{m.title}</h1>
+
+  <div class="prose"><Content /></div>
+
+  <RelatedGrid items={relatedItems} heading="Builds That Pair Well With This" />
+</SiteLayout>
+
+<style>
+  .prose { color: var(--text-dim); line-height: 1.8; }
+  .prose :global(h2) { margin-top: var(--space-4); }
+</style>

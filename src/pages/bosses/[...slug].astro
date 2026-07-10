@@ -1,0 +1,94 @@
+---
+import { getCollection, getEntry } from "astro:content";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import RelatedGrid from "../../components/RelatedGrid.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("bosses");
+  return entries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const boss = entry.data;
+const ogImage = `/og/bosses/${entry.slug.replaceAll("/", "-")}.png`;
+
+const relatedBuilds = await Promise.all(
+  (boss.relatedBuilds ?? []).map((ref: any) => getEntry(ref))
+);
+const relatedItems = relatedBuilds.filter(Boolean).map((r: any) => ({
+  kicker: "RECOMMENDED BUILD", title: r.data.title, href: `/builds/${r.slug}/`,
+}));
+---
+<SiteLayout title={boss.title} description={`${boss.title} phase breakdown and fight guide`} ogImage={ogImage}>
+  <p class="version-flag">Patch: {boss.patchVersion} · updated {boss.updatedAt.toISOString().slice(0,10)}</p>
+
+  <h1>{boss.title}</h1>
+  <p class="meta-line">
+    <span class="tag">{boss.category === "pinnacle" ? "Pinnacle Boss" : "Campaign Boss"}</span>
+    {boss.recommendedLevel && <span class="tag">Recommended Level {boss.recommendedLevel}</span>}
+  </p>
+
+  <h2>Phase Breakdown</h2>
+  <ol class="phase-list">
+    {boss.phases.map((p: any, i: number) => (
+      <li class="phase-item">
+        <div class="phase-name">Phase {i + 1}: {p.name}</div>
+        <div class="phase-row"><span class="k">Trigger</span>{p.trigger}</div>
+        <div class="phase-row"><span class="k">Mechanic</span>{p.mechanic}</div>
+        <div class="phase-row highlight"><span class="k">Counter</span>{p.counter}</div>
+      </li>
+    ))}
+  </ol>
+
+  <h2>Most Common Deaths</h2>
+  <ul class="death-list">
+    {boss.commonDeaths.map((d: string) => <li>{d}</li>)}
+  </ul>
+
+  <h2>Full Fight Guide</h2>
+  <div class="prose"><Content /></div>
+
+  {boss.drops.length > 0 && (
+    <>
+      <h2>Notable Drops</h2>
+      <ul>{boss.drops.map((d: string) => <li>{d}</li>)}</ul>
+    </>
+  )}
+
+  <RelatedGrid items={relatedItems} heading="Builds That Handle This Boss Well" />
+</SiteLayout>
+
+<style>
+  .meta-line { display: flex; gap: 0.5rem; }
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-sm);
+    padding: 0.15em 0.6em;
+    color: var(--text-dim);
+  }
+  .phase-list { list-style: none; padding: 0; }
+  .phase-item {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-hairline);
+    border-left: 3px solid var(--accent-rust);
+    border-radius: var(--radius-sm);
+    padding: var(--space-2);
+    margin-bottom: var(--space-2);
+  }
+  .phase-name { font-family: var(--font-display); margin-bottom: 0.4rem; }
+  .phase-row { font-size: 0.92rem; color: var(--text-dim); margin: 0.2rem 0; }
+  .phase-row .k {
+    display: inline-block; width: 3.2em;
+    font-family: var(--font-mono); font-size: 0.72rem;
+    color: var(--text-faint); text-transform: uppercase;
+  }
+  .phase-row.highlight { color: var(--accent-verdigris-bright); }
+  .death-list li { color: var(--text-dim); margin-bottom: 0.3rem; }
+  .prose { color: var(--text-dim); line-height: 1.75; }
+</style>

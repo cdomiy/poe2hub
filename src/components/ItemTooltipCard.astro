@@ -1,0 +1,60 @@
+---
+// Mimics an ARPG in-game "item tooltip" visual language: a rarity-colored bar on the left
+// plus monospaced stat values. This is the signature element on Build pages — it makes the
+// gear priority list read like an in-game tooltip instead of a plain bullet list.
+interface Props {
+  gearSlot: string;
+  item: string;
+  note?: string;
+  priority: "core" | "recommended" | "luxury";
+}
+const { gearSlot, item, note, priority } = Astro.props as Props;
+
+const priorityMeta = {
+  core: { label: "Core", color: "var(--rarity-unique)" },
+  recommended: { label: "Recommended", color: "var(--rarity-rare)" },
+  luxury: { label: "Luxury", color: "var(--rarity-magic)" },
+}[priority];
+---
+<div class="tooltip-card" style={`--bar-color:${priorityMeta.color}`}>
+  <div class="bar"></div>
+  <div class="body">
+    <div class="row-top">
+      <span class="slot">{gearSlot}</span>
+      <span class="priority-tag">{priorityMeta.label}</span>
+    </div>
+    <div class="item-name">{item}</div>
+    {note && <p class="note">{note}</p>}
+  </div>
+</div>
+
+<style>
+  .tooltip-card {
+    display: flex;
+    background: var(--bg-inset);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    margin-bottom: var(--space-1);
+  }
+  .bar { width: 4px; background: var(--bar-color); flex-shrink: 0; }
+  .body { padding: var(--space-1) var(--space-2); flex: 1; }
+  .row-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .priority-tag { color: var(--bar-color); }
+  .item-name {
+    font-family: var(--font-display);
+    color: var(--text);
+    font-size: 1.02rem;
+    margin-top: 0.15rem;
+  }
+  .note { margin: 0.3rem 0 0; color: var(--text-dim); font-size: 0.88rem; }
+</style>

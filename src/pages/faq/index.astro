@@ -1,0 +1,197 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import FaqSection from "../../components/FaqSection.astro";
+
+const sections = [
+  {
+    id: "release-roadmap",
+    title: "Release Date & Roadmap",
+    faqs: [
+      {
+        q: "When is Path of Exile 2's full (1.0) release?",
+        a: "PoE2 is currently in Early Access. GGG has talked about a 1.0 launch tied to a future major content update, but hasn't locked in a specific calendar date publicly — check the official patch notes and ExileCon announcements for the latest timing, since this shifts as development progresses.",
+      },
+      {
+        q: "Is Path of Exile 2 out on PS5 and Xbox yet?",
+        a: "Yes — PoE2 Early Access is available on PC, PS5, and Xbox Series X|S. Early Access access is platform-specific: buying it on one platform doesn't unlock it on another, so console and PC purchases are separate.",
+      },
+      {
+        q: "What's the difference between Early Access now and the eventual full release?",
+        a: "Early Access is a paid entry (a Supporter Pack bundling game access with in-game points) while the game is still being actively developed and rebalanced. The full release is planned to be free-to-play, matching how the original Path of Exile is distributed.",
+      },
+    ],
+  },
+  {
+    id: "pricing-access",
+    title: "Pricing & Access",
+    faqs: [
+      {
+        q: "Is Path of Exile 2 free?",
+        a: "Not yet, in the sense of a standalone free download — Early Access requires the paid Supporter Pack. It's planned to become fully free-to-play once it exits Early Access at 1.0.",
+      },
+      {
+        q: "Does Path of Exile 2 ever go on sale?",
+        a: "The base Early Access Supporter Pack doesn't run on a recurring discount schedule, but GGG has run limited-time promotions tied to major updates — for example, a free weekend paired with a 50% off Early Access pack around the 0.5.0 Return of the Ancients launch in May 2026. Discounts happen, just irregularly.",
+      },
+      {
+        q: "What do you actually get in the Early Access Supporter Pack / key?",
+        a: "The pack bundles Early Access game entry with in-game points you can spend on stash tabs, cosmetics, and other microtransactions — GGG frames it as pre-buying points with EA access included, not a separate game purchase.",
+      },
+      {
+        q: "How much does Path of Exile 2 cost?",
+        a: "The standard Early Access Supporter Pack is $29.99 USD (regional pricing applies on Steam and console stores).",
+      },
+      {
+        q: "Are third-party key sellers a legitimate way to buy it cheaper?",
+        a: "Some key-comparison sites track third-party prices below the official rate, but these aren't official GGG sales — apply the same caution you would with any third-party game key purchase.",
+      },
+      {
+        q: "Are there free weekends?",
+        a: "Yes, GGG has run free weekends tied to major content updates (most recently around the 0.5.0 launch), letting anyone try Early Access content for a limited window without buying the Supporter Pack.",
+      },
+    ],
+  },
+  {
+    id: "platforms",
+    title: "Platforms & Crossplay",
+    faqs: [
+      {
+        q: "What platforms is Path of Exile 2 on?",
+        a: "PC (Steam), PlayStation 5, and Xbox Series X|S. There's no PS4 or Xbox One (last-gen) version, and no Nintendo Switch version currently.",
+      },
+      {
+        q: "Does PoE2 support crossplay and cross-progression?",
+        a: "Yes to both. Players on PC, PS5, and Xbox Series X|S can party together regardless of platform, and linking your Steam, PlayStation Network, and Xbox accounts to one Path of Exile account carries your characters and progress across all of them. Crossplay can't be individually disabled on PC, though PS5 and Xbox have a settings toggle to opt out.",
+      },
+      {
+        q: "Can I play Path of Exile 2 on Steam Deck?",
+        a: "Yes — PoE2 runs on Steam Deck, and GGG has acknowledged handheld support as part of the PC release.",
+      },
+      {
+        q: "Is Path of Exile 2 coming to Nintendo Switch?",
+        a: "Not currently, and there's no official confirmation of a Switch version.",
+      },
+    ],
+  },
+  {
+    id: "live-data",
+    title: "Live Server & Player Data",
+    faqs: [
+      {
+        q: "How many people are playing Path of Exile 2 right now?",
+        a: "Concurrent player counts change constantly, especially around league launches — for current numbers, check SteamDB or Steam Charts directly rather than relying on a static figure here.",
+      },
+      {
+        q: "Is Path of Exile 2 down right now?",
+        a: "Server status changes minute to minute — check GGG's official status page or the game's Twitter/X account for real-time outage announcements rather than a page that can only be updated periodically.",
+      },
+    ],
+  },
+  {
+    id: "technical",
+    title: "Technical & Troubleshooting",
+    faqs: [
+      {
+        q: "What are the system requirements?",
+        a: "Check the official Steam store page for the current minimum and recommended specs — GGG updates these as the game's rendering requirements change between Early Access patches, so a number written here would go stale.",
+      },
+      {
+        q: "Why does Path of Exile 2 keep crashing or stuttering?",
+        a: "Common first fixes: update your GPU drivers, verify game file integrity through Steam, and lower texture/shadow quality if you're on older hardware — Early Access builds also occasionally ship patch-specific stability issues that GGG addresses in hotfixes, so check recent patch notes if a crash appeared right after an update.",
+      },
+      {
+        q: "Can I play Path of Exile 2 offline?",
+        a: "No — PoE2 is an always-online, server-authoritative game like the original Path of Exile, so an internet connection is required even for solo play.",
+      },
+      {
+        q: "PoE2 won't let me log in — what's wrong?",
+        a: "This is usually either a server-side outage (check official status channels first) or an account-linking issue if you're moving between platforms — try a clean relaunch before assuming it's account-specific.",
+      },
+      {
+        q: "Does Path of Exile 2 support controller and keyboard/mouse both?",
+        a: "Yes, full controller support is built in alongside traditional keyboard and mouse, including on the PC version.",
+      },
+    ],
+  },
+  {
+    id: "cheats-mods",
+    title: "Cheats, Mods & Fair Play",
+    faqs: [
+      {
+        q: "Are cheats or hacks allowed in Path of Exile 2?",
+        a: "No — any tool that modifies the game client, automates play, or reads memory for an unfair advantage violates the terms of use and risks a ban. See our full breakdown of what's compliant vs against the rules.",
+        link: { href: "/cheats/", label: "Read the full Cheats & Mods guide →" },
+      },
+      {
+        q: "Are there mods for Path of Exile 2?",
+        a: "Not in the traditional offline-RPG sense — PoE2 is always-online and server-authoritative, so client-side mods that affect core gameplay aren't functionally possible the way they are in single-player games.",
+      },
+    ],
+  },
+  {
+    id: "reviews-worth-it",
+    title: "Is It Worth It?",
+    faqs: [
+      {
+        q: "Is Path of Exile 2 worth buying in Early Access?",
+        a: "That depends on your tolerance for an unfinished, actively-rebalanced game — Early Access already contains a full campaign and endgame loop that many players get dozens of hours from, but expect periodic balance overhauls and occasional rough edges typical of EA titles.",
+      },
+      {
+        q: "Path of Exile 2 vs the original Path of Exile — which should I play?",
+        a: "They're separate games with separate economies and characters. PoE2 has a slower, more deliberate combat feel and a reworked campaign; PoE1 is the mature, content-dense original that's still actively updated. Many players run both rather than picking one exclusively.",
+      },
+    ],
+  },
+];
+
+// 汇总所有Q&A生成一份FAQPage结构化数据，而不是每个分区各生成一份
+const allFaqs = sections.flatMap((s) => s.faqs);
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: allFaqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+---
+<SiteLayout
+  title="PoE2 FAQ — Release, Pricing, Platforms, Technical & More"
+  description="Answers to the most-searched Path of Exile 2 questions: release date, pricing, crossplay, platforms, player count, technical issues, and cheats/mods policy."
+>
+  <p class="version-flag">Covers the highest-volume PoE2 questions across US/DE/FR search data · 2026-07</p>
+  <h1>Path of Exile 2 — FAQ</h1>
+  <p class="intro">Jump to a section, or scan the whole page.</p>
+
+  <nav class="jump-nav">
+    {sections.map((s) => (
+      <a href={`#${s.id}`}>{s.title}</a>
+    ))}
+  </nav>
+
+  {sections.map((s) => (
+    <FaqSection id={s.id} title={s.title} faqs={s.faqs} />
+  ))}
+
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+</SiteLayout>
+
+<style>
+  .intro { color: var(--text-dim); }
+  .jump-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin: var(--space-2) 0 var(--space-4);
+  }
+  .jump-nav a {
+    font-size: 0.85rem;
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-sm);
+    padding: 0.35em 0.8em;
+    color: var(--text-dim);
+  }
+  .jump-nav a:hover { border-color: var(--accent-verdigris); color: var(--accent-verdigris-bright); text-decoration: none; }
+</style>
+

@@ -1,0 +1,446 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import FaqAccordion from "../../components/FaqAccordion.astro";
+
+const faqs = [
+  {
+    q: "Is this the same as NeverSink's FilterBlade?",
+    a: "No — FilterBlade is a full editor with hundreds of toggles for people who already know what they want. This is a generator: answer 5 questions and get a working filter without needing to understand filter syntax first. If you outgrow it, any .filter file (including the one this generates) can be opened and hand-edited, or imported into FilterBlade as a starting point.",
+  },
+  {
+    q: "Where do I put the downloaded .filter file?",
+    a: "On PC, open Path of Exile 2, go to Options → Game → Item Filter, and use the button there to open your filters folder directly — drop the file in, then select it from the in-game dropdown. On console, filters are managed through your linked pathofexile.com account.",
+  },
+  {
+    q: "Will this filter hide valuable items by mistake?",
+    a: "All Unique-rarity items are always shown regardless of your settings, since a filter that can accidentally hide a unique defeats the purpose. Waystones and currency thresholds scale with the game stage you select, so switching from 'leveling' to 'endgame' after you actually reach endgame is worth doing — a leveling filter left on during endgame will show far too much clutter.",
+  },
+];
+---
+<SiteLayout
+  title="PoE2 Loot Filter Generator"
+  description="Answer 5 quick questions and download a working Path of Exile 2 loot filter — no filter syntax knowledge required."
+>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "PoE2 Loot Filter Generator",
+    "url": "https://poe2hub.net/loot-filter-generator/",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Web",
+    "description": "Answer 5 quick questions and download a working Path of Exile 2 loot filter — no filter syntax knowledge required."
+  }
+  </script>
+  <p class="version-flag">Filter syntax verified against patch 0.5.x · Runes of Aldur compatible</p>
+  <h1>PoE2 Loot Filter Generator</h1>
+  <p class="intro">Answer 5 questions, get a real <code>.filter</code> file. No editor, no syntax to learn.</p>
+
+  <div class="wizard" id="wizard">
+    <div class="step-tabs" id="step-tabs"></div>
+
+    <div class="step-panel" id="step-1">
+      <h3>1. Which class are you playing?</h3>
+      <div class="card-grid" data-group="class">
+        {["Warrior","Witch","Ranger","Sorceress","Mercenary","Monk","Huntress","Druid","Not sure / general"].map((c) => (
+          <button type="button" class="option-card" data-value={c}>{c}</button>
+        ))}
+      </div>
+    </div>
+
+    <div class="step-panel" id="step-2" hidden>
+      <h3>2. What stage of the game are you in?</h3>
+      <div class="card-grid" data-group="stage">
+        <button type="button" class="option-card" data-value="leveling">Leveling / Campaign</button>
+        <button type="button" class="option-card" data-value="midgame">Early Atlas / Mid-game</button>
+        <button type="button" class="option-card" data-value="endgame">Endgame / T15+ maps</button>
+      </div>
+    </div>
+
+    <div class="step-panel" id="step-3" hidden>
+      <h3>3. How strict should filtering be?</h3>
+      <div class="card-grid" data-group="strictness">
+        <button type="button" class="option-card" data-value="soft">Soft — show almost everything, just add colors</button>
+        <button type="button" class="option-card" data-value="regular">Regular — hide obvious trash only</button>
+        <button type="button" class="option-card" data-value="semi-strict">Semi-strict — hide most low-value normal/magic gear</button>
+        <button type="button" class="option-card" data-value="strict">Strict — only currency, uniques, high-tier bases</button>
+      </div>
+    </div>
+
+    <div class="step-panel" id="step-4" hidden>
+      <h3>4. Any special needs?</h3>
+      <div class="card-grid" data-group="special" data-multi="true">
+        <button type="button" class="option-card" data-value="loud-currency">Loud alert sounds on high-value currency</button>
+        <button type="button" class="option-card" data-value="highlight-runes">Highlight all Runes (Runes of Aldur)</button>
+        <button type="button" class="option-card" data-value="highlight-sockets">Highlight socketed items</button>
+        <button type="button" class="option-card" data-value="show-uncut-gems">Extra-visible Uncut Gems</button>
+      </div>
+    </div>
+
+    <div class="step-panel" id="step-5" hidden>
+      <h3>5. Visual style</h3>
+      <div class="card-grid" data-group="style">
+        <button type="button" class="option-card" data-value="default">Default — GGG-style colors</button>
+        <button type="button" class="option-card" data-value="dark">Dark — muted borders, less visual noise</button>
+        <button type="button" class="option-card" data-value="minimal">Minimal — text only, no backgrounds</button>
+      </div>
+    </div>
+
+    <div class="wizard-nav">
+      <button type="button" id="btn-back" disabled>Back</button>
+      <button type="button" id="btn-next">Next</button>
+    </div>
+  </div>
+
+  <div class="result-panel" id="result-panel" hidden>
+    <h2>Your filter is ready</h2>
+    <p class="result-summary" id="result-summary"></p>
+    <div class="result-actions">
+      <button type="button" id="btn-download" class="btn-primary">Download .filter file</button>
+      <button type="button" id="btn-restart">Start over</button>
+    </div>
+    <details class="preview-details">
+      <summary>Preview the generated rules</summary>
+      <pre id="filter-preview" class="filter-preview"></pre>
+    </details>
+  </div>
+
+  <FaqAccordion faqs={faqs} />
+</SiteLayout>
+
+<script>
+  type Answers = {
+    class: string;
+    stage: string;
+    strictness: string;
+    special: string[];
+    style: string;
+  };
+
+  const steps = ["class", "stage", "strictness", "special", "style"] as const;
+  const answers: Answers = { class: "", stage: "", strictness: "", special: [], style: "" };
+  let currentStep = 0;
+
+  const wizard = document.getElementById("wizard")!;
+  const stepTabs = document.getElementById("step-tabs")!;
+  const btnBack = document.getElementById("btn-back") as HTMLButtonElement;
+  const btnNext = document.getElementById("btn-next") as HTMLButtonElement;
+  const resultPanel = document.getElementById("result-panel")!;
+
+  function renderTabs() {
+    stepTabs.innerHTML = "";
+    steps.forEach((_, i) => {
+      const dot = document.createElement("span");
+      dot.className = "step-dot" + (i === currentStep ? " active" : i < currentStep ? " done" : "");
+      stepTabs.appendChild(dot);
+    });
+  }
+
+  function showStep(i: number) {
+    steps.forEach((_, idx) => {
+      const panel = document.getElementById(`step-${idx + 1}`)!;
+      panel.hidden = idx !== i;
+    });
+    btnBack.disabled = i === 0;
+    btnNext.textContent = i === steps.length - 1 ? "Generate filter" : "Next";
+    renderTabs();
+  }
+
+  function isStepAnswered(i: number): boolean {
+    const key = steps[i];
+    if (key === "special") return true; // 可多选，也可以不选
+    return Boolean((answers as any)[key]);
+  }
+
+  document.querySelectorAll<HTMLButtonElement>(".option-card").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const group = btn.parentElement!.dataset.group!;
+      const multi = btn.parentElement!.dataset.multi === "true";
+      const value = btn.dataset.value!;
+
+      if (multi) {
+        const list = answers.special;
+        const idx = list.indexOf(value);
+        if (idx >= 0) list.splice(idx, 1);
+        else list.push(value);
+        btn.classList.toggle("selected");
+      } else {
+        (answers as any)[group] = value;
+        btn.parentElement!.querySelectorAll(".option-card").forEach((b) => b.classList.remove("selected"));
+        btn.classList.add("selected");
+      }
+    });
+  });
+
+  btnBack.addEventListener("click", () => {
+    if (currentStep > 0) {
+      currentStep--;
+      showStep(currentStep);
+    }
+  });
+
+  btnNext.addEventListener("click", () => {
+    if (!isStepAnswered(currentStep)) return;
+    if (currentStep < steps.length - 1) {
+      currentStep++;
+      showStep(currentStep);
+    } else {
+      generateFilter();
+    }
+  });
+
+  // ---------- 生成真实的.filter规则 ----------
+  function colorFor(style: string, kind: "unique" | "currency" | "rune" | "gem" | "waystone") {
+    const palettes: Record<string, Record<string, string>> = {
+      default: { unique: "175 96 37 255", currency: "255 200 0 255", rune: "255 100 255 255", gem: "20 240 240 255", waystone: "0 200 255 255" },
+      dark: { unique: "150 90 60 255", currency: "200 160 40 255", rune: "180 90 180 255", gem: "40 160 160 255", waystone: "40 130 170 255" },
+      minimal: { unique: "255 255 255 255", currency: "255 255 255 255", rune: "255 255 255 255", gem: "255 255 255 255", waystone: "255 255 255 255" },
+    };
+    return palettes[style]?.[kind] ?? palettes.default[kind];
+  }
+
+  function waystoneMinTier(stage: string): number {
+    if (stage === "leveling") return 0;
+    if (stage === "midgame") return 3;
+    return 7; // endgame
+  }
+
+  function gemQualityMin(strictness: string): number {
+    if (strictness === "soft") return 0;
+    if (strictness === "regular") return 8;
+    if (strictness === "semi-strict") return 12;
+    return 14; // strict
+  }
+
+  function buildFilter(a: Answers): string {
+    const lines: string[] = [];
+    const bg = a.style === "minimal" ? "0 0 0 0" : "0 0 0 200";
+
+    lines.push(`# Generated by PoE2 Hub Loot Filter Generator`);
+    lines.push(`# Class: ${a.class || "General"} | Stage: ${a.stage} | Strictness: ${a.strictness} | Style: ${a.style}`);
+    lines.push("");
+
+    // 1. 极品永远显示
+    lines.push(`Show # All Unique items — always visible`);
+    lines.push(`\tRarity Unique`);
+    lines.push(`\tSetFontSize 42`);
+    lines.push(`\tSetTextColor 255 255 255 255`);
+    lines.push(`\tSetBorderColor ${colorFor(a.style, "unique")}`);
+    lines.push(`\tSetBackgroundColor ${bg}`);
+    lines.push(`\tPlayAlertSound 6 300`);
+    lines.push(`\tMinimapIcon 0 Brown Star`);
+    lines.push("");
+
+    // 2. 高价值通货
+    lines.push(`Show # High-value currency`);
+    lines.push(`\tBaseType == "Divine Orb" "Mirror of Kalandra" "Exalted Orb" "Chaos Orb"`);
+    lines.push(`\tSetFontSize 40`);
+    lines.push(`\tSetTextColor ${colorFor(a.style, "currency")}`);
+    lines.push(`\tSetBorderColor ${colorFor(a.style, "currency")}`);
+    lines.push(`\tSetBackgroundColor ${bg}`);
+    if (a.special.includes("loud-currency")) {
+      lines.push(`\tPlayAlertSound 7 300`);
+    } else {
+      lines.push(`\tPlayAlertSound 7 150`);
+    }
+    lines.push(`\tMinimapIcon 0 Yellow Circle`);
+    lines.push("");
+
+    // 3. Waystones，按阶段设定门槛
+    const minTier = waystoneMinTier(a.stage);
+    lines.push(`Show # Waystones tier ${minTier}+`);
+    lines.push(`\tClass == "Waystones"`);
+    lines.push(`\tWaystoneTier >= ${minTier}`);
+    lines.push(`\tSetFontSize 36`);
+    lines.push(`\tSetBorderColor ${colorFor(a.style, "waystone")}`);
+    lines.push(`\tSetBackgroundColor ${bg}`);
+    lines.push("");
+    if (minTier > 0) {
+      lines.push(`Hide # Lower-tier waystones not worth picking up at this stage`);
+      lines.push(`\tClass == "Waystones"`);
+      lines.push(`\tWaystoneTier < ${minTier}`);
+      lines.push("");
+    }
+
+    // 4. Runes（可选高亮）
+    if (a.special.includes("highlight-runes")) {
+      lines.push(`Show # Runes of Aldur — all runes highlighted`);
+      lines.push(`\tClass == "Rune"`);
+      lines.push(`\tSetFontSize 36`);
+      lines.push(`\tSetTextColor ${colorFor(a.style, "rune")}`);
+      lines.push(`\tSetBorderColor ${colorFor(a.style, "rune")}`);
+      lines.push(`\tSetBackgroundColor ${bg}`);
+      lines.push(`\tPlayAlertSound 9 200`);
+      lines.push(`\tMinimapIcon 2 Purple Hexagon`);
+      lines.push("");
+    }
+
+    // 5. 未切割宝石
+    const gemMinQ = gemQualityMin(a.strictness);
+    lines.push(`Show # Uncut Gems${a.special.includes("show-uncut-gems") ? " — extra visible" : ""}`);
+    lines.push(`\tBaseType == "Uncut Skill Gem" "Uncut Support Gem" "Uncut Spirit Gem"`);
+    lines.push(`\tSetFontSize ${a.special.includes("show-uncut-gems") ? 45 : 36}`);
+    lines.push(`\tSetTextColor ${colorFor(a.style, "gem")}`);
+    lines.push(`\tSetBorderColor ${colorFor(a.style, "gem")}`);
+    lines.push(`\tSetBackgroundColor ${bg}`);
+    lines.push("");
+    if (gemMinQ > 0) {
+      lines.push(`Hide # Low-quality gems not worth grabbing at this strictness`);
+      lines.push(`\tBaseType == "Uncut Skill Gem" "Uncut Support Gem" "Uncut Spirit Gem"`);
+      lines.push(`\tQuality < ${gemMinQ}`);
+      lines.push("");
+    }
+
+    // 6. 插槽高亮（可选）
+    if (a.special.includes("highlight-sockets")) {
+      lines.push(`Show # Socketed items (rune slots)`);
+      lines.push(`\tSockets >= 1`);
+      lines.push(`\tSetBorderColor 255 255 255 255`);
+      lines.push("");
+    }
+
+    // 7. Rare物品，按严格度决定门槛
+    lines.push(`Show # Rare items`);
+    lines.push(`\tRarity Rare`);
+    lines.push(`\tSetFontSize 32`);
+    lines.push(`\tSetBorderColor 200 200 0 255`);
+    lines.push(`\tSetBackgroundColor ${bg}`);
+    lines.push("");
+
+    // 8. Normal/Magic 处理，按stage+strictness决定隐藏门槛
+    const hideNormalMagicAreaLevel = a.strictness === "strict" ? 30 : a.strictness === "semi-strict" ? 45 : a.strictness === "regular" ? 60 : 999;
+    if (hideNormalMagicAreaLevel < 999) {
+      lines.push(`Hide # Low-value Normal/Magic gear past this point in the game`);
+      lines.push(`\tRarity Normal Magic`);
+      lines.push(`\tAreaLevel >= ${hideNormalMagicAreaLevel}`);
+      lines.push(`\tClass == "Amulets" "Belts" "Body Armours" "Boots" "Bows" "Gloves" "Helmets" "Quivers" "Rings" "Shields"`);
+      lines.push("");
+    }
+
+    // 9. 兜底：其他都显示（soft）或隐藏（strict）
+    if (a.strictness === "strict") {
+      lines.push(`Hide # Catch-all — strict mode hides everything not explicitly shown above`);
+    } else {
+      lines.push(`Show # Catch-all — everything else stays visible`);
+    }
+
+    return lines.join("\n");
+  }
+
+  function generateFilter() {
+    wizard.setAttribute("hidden", "true");
+    resultPanel.removeAttribute("hidden");
+
+    const filterText = buildFilter(answers);
+    document.getElementById("filter-preview")!.textContent = filterText;
+    document.getElementById("result-summary")!.textContent =
+      `${answers.class || "General"} · ${answers.stage} · ${answers.strictness} strictness · ${answers.style} style`;
+
+    const downloadBtn = document.getElementById("btn-download")!;
+    downloadBtn.onclick = () => {
+      const blob = new Blob([filterText], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "poe2-hub.filter";
+      a.click();
+      URL.revokeObjectURL(url);
+    };
+  }
+
+  document.getElementById("btn-restart")!.addEventListener("click", () => {
+    answers.class = ""; answers.stage = ""; answers.strictness = ""; answers.special = []; answers.style = "";
+    currentStep = 0;
+    document.querySelectorAll(".option-card").forEach((b) => b.classList.remove("selected"));
+    resultPanel.setAttribute("hidden", "true");
+    wizard.removeAttribute("hidden");
+    showStep(0);
+  });
+
+  showStep(0);
+</script>
+
+<style>
+  .intro { color: var(--text-dim); }
+  .step-tabs { display: flex; gap: 0.5rem; margin-bottom: var(--space-3); }
+  .step-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--border-hairline);
+  }
+  .step-dot.active { background: var(--accent-gold); }
+  .step-dot.done { background: var(--accent-verdigris); }
+
+  .step-panel h3 { margin-bottom: var(--space-2); }
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 0.6rem;
+  }
+  .option-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-hairline);
+    color: var(--text-dim);
+    border-radius: var(--radius-sm);
+    padding: 0.8em 1em;
+    text-align: left;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+  }
+  .option-card:hover { border-color: var(--accent-verdigris); }
+  .option-card.selected {
+    border-color: var(--accent-gold);
+    color: var(--text);
+    background: rgba(201,162,75,0.08);
+  }
+
+  .wizard-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: var(--space-3);
+  }
+  .wizard-nav button {
+    background: var(--accent-verdigris);
+    color: #16130f;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 0.6em 1.4em;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .wizard-nav button:disabled { opacity: 0.4; cursor: not-allowed; }
+  .wizard-nav button:first-child { background: transparent; border: 1px solid var(--border-hairline); color: var(--text-dim); }
+
+  .result-panel { margin-top: var(--space-3); }
+  .result-summary { color: var(--accent-verdigris-bright); }
+  .result-actions { display: flex; gap: 0.8rem; margin: var(--space-2) 0; }
+  .btn-primary {
+    background: var(--accent-rust);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 0.7em 1.6em;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  #btn-restart {
+    background: transparent;
+    border: 1px solid var(--border-hairline);
+    color: var(--text-dim);
+    border-radius: var(--radius-sm);
+    padding: 0.7em 1.4em;
+    cursor: pointer;
+  }
+  .preview-details { margin-top: var(--space-2); }
+  .filter-preview {
+    background: var(--bg-inset);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-sm);
+    padding: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    overflow-x: auto;
+    white-space: pre;
+  }
+</style>

@@ -1,0 +1,102 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import FaqAccordion from "../../components/FaqAccordion.astro";
+
+const faqs = [
+  {
+    q: "Where is the PoE2 trade site?",
+    a: "pathofexile.com/trade2 — or press the / key in-game (or open the Market Panel from the bottom-left menu) for an identical in-game version. Both work the same way, so use whichever is more convenient.",
+  },
+  {
+    q: "What's the difference between the Currency Exchange and the Merchant's Tab?",
+    a: "The Currency Exchange is an automated order-book for stackable items only (orbs, runes, fragments, splinters) — you set what you have and what you want, and it fills against other players' orders with no whisper needed. The Merchant's Tab is for gear and other non-stackable items: you price each item individually, and buyers teleport to your hideout to grab it whenever you're online or not.",
+  },
+  {
+    q: "Do I need a special stash tab to sell gear?",
+    a: "Yes — only a Merchant's Tab (bought directly, or a Premium Stash Tab converted before the cutoff date tied to the 0.3 The Third Edict launch) can be listed publicly. Quad Stash Tabs can't be converted at all.",
+  },
+  {
+    q: "Can Solo Self-Found characters trade?",
+    a: "No — SSF blocks the Currency Exchange, the Merchant's Tab, and direct player trades entirely. Switching out of SSF moves your character to Standard permanently, so don't flip it on lightly just to make one trade.",
+  },
+  {
+    q: "Is gold tradeable between players?",
+    a: "No. Gold is earned from kills and vendor sales and spent on Currency Exchange fees, passive respecs, and hideout purchases — it never changes hands between players, which is by design so it can't become a shadow universal currency.",
+  },
+  {
+    q: "How do I avoid getting scammed in a direct trade?",
+    a: "Always hover over the item in the trade window yourself to confirm it matches what was listed before clicking Accept — don't trust the chat description alone. This is the same rule that's applied since the original Path of Exile.",
+  },
+];
+---
+<SiteLayout
+  title="PoE2 Trade Guide — Currency Exchange, Merchant's Tab & Trade Site"
+  description="How trading actually works in Path of Exile 2: the Currency Exchange, the Merchant's Tab, direct player trades, and how to avoid getting scammed."
+>
+  <p class="version-flag">Covers the Runes of Aldur (0.5.x) trade system</p>
+  <h1>PoE2 Trade Guide</h1>
+  <p class="intro">
+    There's no auction house in Path of Exile 2 — trading runs on three separate systems,
+    and knowing which one to reach for is most of the skill.
+  </p>
+
+  <h2>The three trade channels</h2>
+  <div class="channel-grid">
+    <div class="channel-card">
+      <h3>Currency Exchange</h3>
+      <p>Automated order-book for stackable items only — orbs, runes, fragments, splinters. Set what you have and what you want; it fills instantly against existing orders. No whisper, no meeting anyone. Access it through Ange in your hideout (or in Kingsmarch, Act 4).</p>
+    </div>
+    <div class="channel-card">
+      <h3>Merchant's Tab (async)</h3>
+      <p>For gear and anything non-stackable. Price each item individually in your Merchant's Tab, and buyers teleport to your hideout to grab it whenever — you don't need to be online. Requires a Merchant's Tab specifically, not a regular stash tab.</p>
+    </div>
+    <div class="channel-card">
+      <h3>Direct player trade</h3>
+      <p>The classic flow: find an item on the trade site, click to copy a whisper message, send it, get a party invite, travel to their hideout, and trade directly. Slower, but it's the only route for anything not covered by the other two.</p>
+    </div>
+  </div>
+
+  <h2>How to price and sell without getting lowballed</h2>
+  <ul>
+    <li>Search the trade site for your exact item first and read the going rate off the cheapest few <em>real</em> listings — don't guess.</li>
+    <li>Undercut the median by roughly 10-15% if you want a fast sale rather than the best possible price.</li>
+    <li>Listing itself is free; only a small gold fee applies when a sale actually completes, so there's no downside to listing fairly.</li>
+    <li>Filter aggressively on the trade site — if you're seeing 200+ results, your search isn't specific enough to be useful yet.</li>
+  </ul>
+
+  <h2>Getting a Merchant's Tab</h2>
+  <p>
+    You can buy one directly from the in-game shop, or convert an existing Premium Stash Tab —
+    but only Premium Tabs purchased before the 0.3 The Third Edict launch are eligible for
+    conversion, and Quad Stash Tabs can't be converted under any circumstances.
+  </p>
+
+  <h2>Common mistakes to avoid</h2>
+  <ul>
+    <li><strong>Using the whisper flow for bulk currency.</strong> Swapping a stack of Chaos Orbs for Divines belongs in the Currency Exchange, not a one-on-one whisper trade.</li>
+    <li><strong>Skipping the item hover-check.</strong> Always verify the actual item in the trade window before clicking Accept — descriptions in chat aren't binding.</li>
+    <li><strong>Flipping SSF on for one trade.</strong> It's a one-way move to Standard league. Don't do it on impulse.</li>
+  </ul>
+
+  <FaqAccordion faqs={faqs} />
+</SiteLayout>
+
+<style>
+  .intro { color: var(--text-dim); }
+  .channel-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-2);
+    margin: var(--space-2) 0 var(--space-3);
+  }
+  .channel-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-hairline);
+    border-left: 3px solid var(--accent-verdigris);
+    border-radius: var(--radius-sm);
+    padding: var(--space-2);
+  }
+  .channel-card h3 { margin-top: 0; }
+  .channel-card p { color: var(--text-dim); font-size: 0.92rem; margin-bottom: 0; }
+  ul { color: var(--text-dim); }
+</style>

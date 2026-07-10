@@ -1,0 +1,23 @@
+---
+interface Props {
+  id: string;
+  title: string;
+  faqs: { q: string; a: string; link?: { href: string; label: string } }[];
+}
+const { id, title, faqs } = Astro.props as Props;
+---
+<section class="faq-section-block" id={id}>
+  <h2>{title}</h2>
+  {faqs.map((f) => (
+    <details class="faq-item">
+      <summary>{f.q}</summary>
+      <p>{f.a}</p>
+      {f.link && <a class="faq-link" href={f.link.href}>{f.link.label}</a>}
+    </details>
+  ))}
+</section>
+
+<style>
+  .faq-section-block { margin-bottom: var(--space-4); scroll-margin-top: 90px; }
+  .faq-link { display: inline-block; font-size: 0.88rem; margin-top: 0.3rem; }
+</style>

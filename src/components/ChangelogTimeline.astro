@@ -1,0 +1,44 @@
+---
+interface Props {
+  currentPatch: string;
+  changelog: { version: string; date: Date; change: string }[];
+}
+const { currentPatch, changelog } = Astro.props as Props;
+const sorted = [...changelog].sort((a, b) => b.date.getTime() - a.date.getTime());
+---
+<div class="version-flag">Current patch: {currentPatch}</div>
+
+{sorted.length > 0 && (
+  <details class="changelog">
+    <summary>Change history ({sorted.length} entries)</summary>
+    <ul>
+      {sorted.map((c) => (
+        <li>
+          <span class="mono v">{c.version}</span>
+          <span class="date">{c.date.toISOString().slice(0, 10)}</span>
+          <span class="change">{c.change}</span>
+        </li>
+      ))}
+    </ul>
+  </details>
+)}
+
+<style>
+  .changelog { margin: var(--space-2) 0; }
+  .changelog summary {
+    cursor: pointer;
+    color: var(--text-dim);
+    font-size: 0.9rem;
+  }
+  .changelog ul { list-style: none; padding: 0; margin-top: var(--space-1); }
+  .changelog li {
+    display: grid;
+    grid-template-columns: 90px 100px 1fr;
+    gap: var(--space-1);
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--border-hairline);
+    font-size: 0.88rem;
+  }
+  .v { color: var(--accent-rust-bright); }
+  .date { color: var(--text-faint); }
+</style>

@@ -1,0 +1,77 @@
+---
+import { getCollection, getEntry } from "astro:content";
+import SiteLayout from "../../../layouts/SiteLayout.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("patches");
+  return entries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const p = entry.data;
+const ogImage = `/og/patches/${entry.slug.replaceAll("/", "-")}.png`;
+
+const categoryLabel: Record<string, string> = {
+  class: "Class/Skills",
+  mechanic: "Mechanics",
+  item: "Items",
+  bugfix: "Bug Fixes",
+};
+
+// Resolve each change's internal link target, if any
+const resolvedChanges = await Promise.all(
+  p.changes.map(async (c: any) => {
+    let link: { href: string; label: string } | null = null;
+    if (c.linkedMechanic) {
+      const m = await getEntry(c.linkedMechanic);
+      if (m) link = { href: `/mechanics/${m.slug}/`, label: `See mechanic breakdown → ${m.data.title}` };
+    } else if (c.linkedBuild) {
+      const b = await getEntry(c.linkedBuild);
+      if (b) link = { href: `/builds/${b.slug}/`, label: `See build details → ${b.data.title}` };
+    }
+    return { ...c, link };
+  })
+);
+---
+<SiteLayout title={`${p.version} Patch Notes`} description={p.summary} ogImage={ogImage}>
+  <p class="version-flag">Release date: {p.releaseDate.toISOString().slice(0,10)}</p>
+  <h1>{p.title}</h1>
+  <div class="tldr-box">
+    <h3>TL;DR</h3>
+    <p>{p.summary}</p>
+  </div>
+
+  <h2>Full Changelog</h2>
+  <ul class="change-list">
+    {resolvedChanges.map((c) => (
+      <li class="change-item">
+        <span class="cat-tag">{categoryLabel[c.category]}</span>
+        <div class="change-text">{c.text}</div>
+        {c.link && <a class="change-link" href={c.link.href}>{c.link.label}</a>}
+      </li>
+    ))}
+  </ul>
+</SiteLayout>
+
+<style>
+  .change-list { list-style: none; padding: 0; }
+  .change-item {
+    border-bottom: 1px solid var(--border-hairline);
+    padding: var(--space-2) 0;
+  }
+  .cat-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--accent-gold);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-sm);
+    padding: 0.1em 0.5em;
+    margin-bottom: 0.3rem;
+  }
+  .change-text { color: var(--text-dim); }
+  .change-link { display: inline-block; margin-top: 0.4rem; font-size: 0.9rem; }
+</style>

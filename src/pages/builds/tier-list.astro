@@ -1,0 +1,108 @@
+---
+import { getCollection } from "astro:content";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+
+const builds = await getCollection("builds");
+const sorted = [...builds].sort((a, b) => {
+  const order = { S: 0, A: 1, B: 2, C: 3 };
+  return order[a.data.tier] - order[b.data.tier];
+});
+
+const classes = [...new Set(builds.map((b) => b.data.class))];
+const playstyles = [...new Set(builds.map((b) => b.data.playstyle))];
+
+const tierColor: Record<string, string> = {
+  S: "var(--accent-rust-bright)",
+  A: "var(--rarity-rare)",
+  B: "var(--rarity-magic)",
+  C: "var(--text-faint)",
+};
+---
+<SiteLayout
+  title="0.5.x Build Tier List"
+  description="Path of Exile 2 current-patch build strength rankings, filterable by class and playstyle"
+>
+  <p class="version-flag">Rankings aligned to: 0.5.4b · updated within 24h of every balance patch</p>
+  <h1>Build Tier List</h1>
+  <p class="intro">Ranked by strength, ease of play, and cost. Filter below, or jump straight into a build page for full gear and passive tree details.</p>
+
+  <div class="filter-bar">
+    <select id="filter-class">
+      <option value="">All Classes</option>
+      {classes.map((c) => <option value={c}>{c}</option>)}
+    </select>
+    <select id="filter-style">
+      <option value="">All Playstyles</option>
+      {playstyles.map((p) => <option value={p}>{p}</option>)}
+    </select>
+  </div>
+
+  <div id="tier-table">
+    {sorted.map((b) => (
+      <a
+        class="tier-row"
+        href={`/builds/${b.slug}/`}
+        data-class={b.data.class}
+        data-style={b.data.playstyle}
+      >
+        <span class="tier-badge" style={`background:${tierColor[b.data.tier]}`}>{b.data.tier}</span>
+        <span class="build-name">{b.data.title}</span>
+        <span class="build-meta">{b.data.class} · {b.data.coreSkill}</span>
+        <span class="build-cost">Cost: {b.data.estCost}</span>
+      </a>
+    ))}
+  </div>
+</SiteLayout>
+
+<script>
+  const classSelect = document.getElementById("filter-class") as HTMLSelectElement;
+  const styleSelect = document.getElementById("filter-style") as HTMLSelectElement;
+  const rows = Array.from(document.querySelectorAll<HTMLElement>(".tier-row"));
+
+  function applyFilter() {
+    const cls = classSelect.value;
+    const style = styleSelect.value;
+    rows.forEach((row) => {
+      const matchClass = !cls || row.dataset.class === cls;
+      const matchStyle = !style || row.dataset.style === style;
+      row.style.display = matchClass && matchStyle ? "grid" : "none";
+    });
+  }
+  classSelect.addEventListener("change", applyFilter);
+  styleSelect.addEventListener("change", applyFilter);
+</script>
+
+<style>
+  .intro { color: var(--text-dim); }
+  .filter-bar { display: flex; gap: var(--space-2); margin: var(--space-3) 0; }
+  .filter-bar select {
+    background: var(--bg-elevated);
+    color: var(--text);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-sm);
+    padding: 0.5em 0.8em;
+    font-family: var(--font-body);
+  }
+  .tier-row {
+    display: grid;
+    grid-template-columns: 48px 1fr auto auto;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-2);
+    border-bottom: 1px solid var(--border-hairline);
+    color: var(--text);
+  }
+  .tier-row:hover { background: var(--bg-elevated); text-decoration: none; }
+  .tier-badge {
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 700;
+    color: var(--bg); border-radius: var(--radius-sm);
+  }
+  .build-name { font-family: var(--font-display); }
+  .build-meta, .build-cost { font-size: 0.85rem; color: var(--text-faint); font-family: var(--font-mono); }
+  @media (max-width: 640px) {
+    .tier-row { grid-template-columns: 32px 1fr; }
+    .build-meta, .build-cost { grid-column: 2; }
+  }
+</style>

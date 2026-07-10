@@ -1,0 +1,73 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import RelatedGrid from "../../components/RelatedGrid.astro";
+
+const relatedItems = [
+  { kicker: "GUIDES", title: "Class Guide — All 8 Classes Compared", href: "/getting-started/class-guide/" },
+  { kicker: "BUILDS", title: "Build Tier List", href: "/builds/tier-list/" },
+  { kicker: "TOOLS", title: "Build Planner", href: "/build-planner/" },
+  { kicker: "MECHANICS", title: "Passive Skill Tree Explained", href: "/mechanics/passive-tree/" },
+  { kicker: "REFERENCE", title: "Skill Gems, Support Gems & Spirit Gems", href: "/skill-gems/" },
+  { kicker: "REFERENCE", title: "Trade Guide", href: "/trade-guide/" },
+];
+---
+<SiteLayout
+  title="PoE2 Beginner Guide — Getting Started"
+  description="New to Path of Exile 2? Start here: picking a class, understanding gems and the passive tree, and what to prioritize in your first playthrough."
+>
+  <h1>Getting Started with Path of Exile 2</h1>
+  <p class="intro">
+    PoE2 throws a lot at new players at once. This page is the on-ramp — read this first,
+    then branch out into the deeper guides linked at the bottom.
+  </p>
+
+  <h2>Picking a class</h2>
+  <p>
+    Every class can eventually go in multiple directions once you pick an Ascendancy, so don't
+    overthink your first choice, the starting attribute focus matters less than it looks like
+    it should. Our <a href="/getting-started/class-guide/">full Class Guide</a> compares all 8
+    classes side by side. If you want the lowest-friction start, our <a href="/builds/tier-list/">Build Tier List</a>
+    flags which current builds are rated as good league starters specifically.
+  </p>
+
+  <h2>Understanding gems before you touch the skill panel</h2>
+  <p>
+    Skills in PoE2 are tied to your <strong>weapon</strong>, not your class — a big change from
+    the original Path of Exile if you're coming from there. You won't find finished gems as
+    drops; you'll find Uncut Gems that you turn into a specific skill yourself. Read the full
+    <a href="/skill-gems/">skill gem breakdown</a> before you start making choices you'll want to undo.
+  </p>
+
+  <h2>The passive tree: don't panic</h2>
+  <p>
+    The tree looks overwhelming at first glance. The practical version: pick one Keystone as
+    your anchor before you start allocating points, path toward Notables rather than detouring
+    for small passives, and don't worry about "wasting" points early — respeccing costs Gold,
+    not real money, and the cost only gets steep at higher levels. Full details on the
+    <a href="/mechanics/passive-tree/">passive tree page</a>.
+  </p>
+
+  <h2>Currency and trading, in one paragraph</h2>
+  <p>
+    You'll accumulate orbs constantly — don't hoard them out of caution. Chaos Orbs and Exalted
+    Orbs are your everyday spending money; Divine Orbs are for expensive purchases. When you're
+    ready to actually buy or sell gear, the <a href="/trade-guide/">trade guide</a> covers the
+    three trading systems and how not to get scammed.
+  </p>
+
+  <h2>What to actually prioritize in your first playthrough</h2>
+  <ul>
+    <li>Follow your build guide's leveling section rather than freestyling the passive tree — most wasted points happen in the first 20 levels.</li>
+    <li>Don't skip side content that grants passive skill points or Weapon Set Passive Skill Points — they add up to real power over a full campaign.</li>
+    <li>Pick up an Uncut Gem stash habit early — having spares on hand saves you from being stuck with a skill you don't like.</li>
+    <li>Don't feel pressured to understand the trade site on day one — the campaign is fully completable on found gear.</li>
+  </ul>
+
+  <RelatedGrid items={relatedItems} heading="Where to go next" />
+</SiteLayout>
+
+<style>
+  .intro { color: var(--text-dim); max-width: 640px; }
+  p { color: var(--text-dim); line-height: 1.75; }
+  ul { color: var(--text-dim); }
+</style>

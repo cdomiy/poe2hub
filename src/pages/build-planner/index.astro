@@ -1,0 +1,291 @@
+---
+import { getCollection } from "astro:content";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import FaqAccordion from "../../components/FaqAccordion.astro";
+
+const builds = await getCollection("builds");
+
+// 精简成前端需要的纯数据，避免把Astro Content Collection的内部对象序列化进页面
+const plannerData = builds.map((b) => ({
+  slug: b.slug,
+  class: b.data.class,
+  ascendancy: b.data.ascendancy,
+  title: b.data.title,
+  coreSkill: b.data.coreSkill,
+  tier: b.data.tier,
+  playstyle: b.data.playstyle,
+  estCost: b.data.estCost,
+  summary: b.data.summary,
+  gearPriority: b.data.gearPriority,
+  skillGems: b.data.skillGems ?? null,
+  passiveTreePriority: b.data.passiveTreePriority ?? null,
+  levelingGuide: b.data.levelingGuide ?? null,
+  nodesVerified: b.data.nodesVerified,
+}));
+
+const classes = [...new Set(plannerData.map((b) => b.class))].sort();
+
+const faqs = [
+  {
+    q: "How is this different from Path of Building?",
+    a: "PoB is a full simulator — you build the passive tree node by node and it calculates exact DPS and defense numbers, which takes real setup time and game knowledge to use well. This planner is the opposite: pick your class and Ascendancy, and get a direct recommendation — gear priority, gem links, and passive direction — without touching a single node yourself. Think of it as the starting point, not a replacement for PoB once you're optimizing further.",
+  },
+  {
+    q: "Why is there only one build per Ascendancy?",
+    a: "Each Ascendancy here shows its current flagship build — the one direction most guides converge on right now. Some Ascendancies support multiple viable skill variants; where that's the case, the linked full build page covers the alternatives.",
+  },
+  {
+    q: "How current is this data?",
+    a: "Cross-checked against Maxroll, Mobalytics, PoE2Wiki, and community tier lists as of patch 0.5.4b. Ascendancy node names are marked as independently verified or not — check the linked full build page for that detail before treating any specific node name as certain.",
+  },
+];
+---
+<SiteLayout
+  title="PoE2 Build Planner"
+  description="Pick your class and Ascendancy, get an instant gear priority, gem link, and passive tree direction — no Path of Building setup required."
+>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "PoE2 Build Planner",
+    "url": "https://poe2hub.net/build-planner/",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Web",
+    "description": "Pick your class and Ascendancy, get an instant gear priority, gem link, and passive tree direction — no Path of Building setup required."
+  }
+  </script>
+  <p class="version-flag">Data cross-checked against patch 0.5.4b · 22 Ascendancies covered</p>
+  <h1>PoE2 Build Planner</h1>
+  <p class="intro">
+    Not a Path of Building replacement — pick two things below and get a direct answer, not a
+    simulator to configure.
+  </p>
+
+  <div class="planner">
+    <div class="step-panel">
+      <h3>1. Class</h3>
+      <div class="chip-row" id="class-row">
+        {classes.map((c) => (
+          <button type="button" class="chip" data-class={c}>{c}</button>
+        ))}
+      </div>
+    </div>
+
+    <div class="step-panel" id="ascendancy-panel" hidden>
+      <h3>2. Ascendancy</h3>
+      <div class="chip-row" id="ascendancy-row"></div>
+    </div>
+  </div>
+
+  <div id="result-panel" hidden>
+    <div class="tldr-box" id="result-summary"></div>
+
+    <h2>Skill Gem Setup</h2>
+    <div class="gem-grid" id="result-gems"></div>
+
+    <h2>Gear Priority</h2>
+    <div id="result-gear"></div>
+
+    <h2>Passive Tree Direction</h2>
+    <ul class="tree-list" id="result-tree"></ul>
+
+    <h2>Leveling Path</h2>
+    <ul class="tree-list" id="result-leveling"></ul>
+
+    <p class="full-guide-link"><a id="result-full-link" href="#">→ See the full build guide with pros/cons and FAQ</a></p>
+  </div>
+
+  <FaqAccordion faqs={faqs} />
+</SiteLayout>
+
+<script define:vars={{ plannerData }}>
+  const classRow = document.getElementById("class-row");
+  const ascendancyPanel = document.getElementById("ascendancy-panel");
+  const ascendancyRow = document.getElementById("ascendancy-row");
+  const resultPanel = document.getElementById("result-panel");
+
+  let selectedClass = null;
+
+  function selectClass(cls) {
+    selectedClass = cls;
+    document.querySelectorAll("#class-row .chip").forEach((el) => {
+      el.classList.toggle("selected", el.dataset.class === cls);
+    });
+
+    const options = plannerData.filter((b) => b.class === cls);
+    ascendancyRow.innerHTML = "";
+    options.forEach((b) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "chip";
+      btn.dataset.slug = b.slug;
+      btn.textContent = b.ascendancy;
+      btn.addEventListener("click", () => selectBuild(b.slug));
+      ascendancyRow.appendChild(btn);
+    });
+    ascendancyPanel.hidden = false;
+    resultPanel.hidden = true;
+  }
+
+  function tierColor(tier) {
+    return { S: "#d66240", A: "#e8d55c", B: "#6f9fd8", C: "#a89e88" }[tier] || "#a89e88";
+  }
+
+  function selectBuild(slug) {
+    const b = plannerData.find((x) => x.slug === slug);
+    if (!b) return;
+
+    document.querySelectorAll("#ascendancy-row .chip").forEach((el) => {
+      el.classList.toggle("selected", el.dataset.slug === slug);
+    });
+
+    document.getElementById("result-summary").innerHTML = `
+      <h3>${b.title}</h3>
+      <p>${b.summary}</p>
+      <div class="tldr-grid">
+        <div class="tldr-item"><div class="label">Tier</div><div class="value" style="color:${tierColor(b.tier)}">${b.tier} Tier</div></div>
+        <div class="tldr-item"><div class="label">Best For</div><div class="value">${b.playstyle}</div></div>
+        <div class="tldr-item"><div class="label">Est. Cost</div><div class="value">${b.estCost}</div></div>
+        <div class="tldr-item"><div class="label">Core Skill</div><div class="value">${b.coreSkill}</div></div>
+      </div>
+      ${!b.nodesVerified ? '<p class="verify-note">⚠️ Some ascendancy node names for this build are not yet individually verified — see the full guide for details.</p>' : ""}
+    `;
+
+    const gemsEl = document.getElementById("result-gems");
+    gemsEl.innerHTML = "";
+    if (b.skillGems) {
+      const rows = [];
+      if (b.skillGems.mainSkill) rows.push(["Main Skill", b.skillGems.mainSkill]);
+      if (b.skillGems.secondarySkill) rows.push(["Secondary Skill", b.skillGems.secondarySkill]);
+      (b.skillGems.spiritSkills || []).forEach((s) => rows.push(["Spirit Skill", s]));
+      (b.skillGems.utilitySkills || []).forEach((s) => rows.push(["Utility", s]));
+      rows.forEach(([label, gem]) => {
+        const card = document.createElement("div");
+        card.className = "gem-card";
+        card.innerHTML = `
+          <div class="gem-label">${label}</div>
+          <div class="gem-name">${gem.gem}</div>
+          <div class="gem-supports">${(gem.supports || []).join(" · ") || "—"}</div>
+        `;
+        gemsEl.appendChild(card);
+      });
+    }
+
+    const gearEl = document.getElementById("result-gear");
+    gearEl.innerHTML = "";
+    const priorityColor = { core: "#af6025", recommended: "#e8d55c", luxury: "#6f9fd8" };
+    b.gearPriority.forEach((g) => {
+      const card = document.createElement("div");
+      card.className = "tooltip-like-card";
+      card.style.setProperty("--bar-color", priorityColor[g.priority] || "#a89e88");
+      card.innerHTML = `
+        <div class="bar"></div>
+        <div class="body">
+          <div class="row-top"><span>${g.slot}</span><span class="priority-tag">${g.priority}</span></div>
+          <div class="item-name">${g.item}</div>
+          ${g.note ? `<p class="note">${g.note}</p>` : ""}
+        </div>
+      `;
+      gearEl.appendChild(card);
+    });
+
+    const treeEl = document.getElementById("result-tree");
+    treeEl.innerHTML = "";
+    if (b.passiveTreePriority) {
+      treeEl.innerHTML = `
+        <li><strong>Early game:</strong> ${b.passiveTreePriority.earlyGame}</li>
+        <li><strong>Mid game:</strong> ${b.passiveTreePriority.midGame}</li>
+        <li><strong>End game:</strong> ${b.passiveTreePriority.endGame}</li>
+      `;
+    }
+
+    const levelEl = document.getElementById("result-leveling");
+    levelEl.innerHTML = "";
+    if (b.levelingGuide) {
+      levelEl.innerHTML = `
+        <li><strong>Act 1–3:</strong> ${b.levelingGuide.act1to3}</li>
+        <li><strong>Act 4–6:</strong> ${b.levelingGuide.act4to6}</li>
+        <li><strong>Mapping:</strong> ${b.levelingGuide.mapping}</li>
+      `;
+    }
+
+    document.getElementById("result-full-link").href = `/builds/${b.slug}/`;
+    resultPanel.hidden = false;
+    resultPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  document.querySelectorAll("#class-row .chip").forEach((el) => {
+    el.addEventListener("click", () => selectClass(el.dataset.class));
+  });
+</script>
+
+<style>
+  .intro { color: var(--text-dim); max-width: 640px; }
+  .planner { margin: var(--space-3) 0; }
+  .step-panel { margin-bottom: var(--space-3); }
+  .chip-row { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .chip {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-hairline);
+    color: var(--text-dim);
+    border-radius: var(--radius-sm);
+    padding: 0.6em 1.1em;
+    cursor: pointer;
+    font-family: var(--font-body);
+  }
+  .chip:hover { border-color: var(--accent-verdigris); }
+  .chip.selected {
+    border-color: var(--accent-gold);
+    color: var(--text);
+    background: rgba(201,162,75,0.1);
+  }
+
+  .verify-note {
+    font-size: 0.85rem;
+    color: var(--accent-rust-bright);
+    border-left: 2px solid var(--accent-rust);
+    padding-left: 0.8em;
+    margin-top: var(--space-1);
+  }
+
+  .gem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--space-2);
+    margin-bottom: var(--space-2);
+  }
+  .gem-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-sm);
+    padding: var(--space-2);
+  }
+  .gem-label { font-size: 0.72rem; text-transform: uppercase; color: var(--text-faint); font-family: var(--font-mono); }
+  .gem-name { font-family: var(--font-display); color: var(--text); margin: 0.2rem 0; }
+  .gem-supports { font-size: 0.85rem; color: var(--text-dim); }
+
+  .tooltip-like-card {
+    display: flex;
+    background: var(--bg-inset);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    margin-bottom: var(--space-1);
+  }
+  .tooltip-like-card .bar { width: 4px; background: var(--bar-color); flex-shrink: 0; }
+  .tooltip-like-card .body { padding: var(--space-1) var(--space-2); flex: 1; }
+  .tooltip-like-card .row-top {
+    display: flex; justify-content: space-between;
+    font-family: var(--font-mono); font-size: 0.72rem;
+    color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .tooltip-like-card .priority-tag { color: var(--bar-color); }
+  .tooltip-like-card .item-name { font-family: var(--font-display); color: var(--text); font-size: 1.02rem; margin-top: 0.15rem; }
+  .tooltip-like-card .note { margin: 0.3rem 0 0; color: var(--text-dim); font-size: 0.88rem; }
+
+  .tree-list { color: var(--text-dim); padding-left: 1.2em; }
+  .tree-list li { margin-bottom: 0.5em; }
+
+  .full-guide-link { margin-top: var(--space-2); }
+</style>

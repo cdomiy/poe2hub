@@ -1,0 +1,149 @@
+/* =========================================================
+   设计令牌 Design Tokens
+   基调：暗铁 + 氧化铜绿 + 血锈色。参考被雨水和血锈侵蚀的
+   旧世界铠甲质感，而不是通用"暗黑科技风"。
+   ========================================================= */
+:root {
+  /* 色板 */
+  --bg: #16130f;              /* 暗铁炭黑 */
+  --bg-elevated: #201b15;     /* 卡片/面板 */
+  --bg-inset: #0f0d0a;        /* 凹陷区域，如代码/数值块 */
+  --border-hairline: #3a3226;
+
+  --text: #e4dcc8;            /* 陈旧骨白 */
+  --text-dim: #a89e88;
+  --text-faint: #6f6656;
+
+  --accent-verdigris: #5c8577; /* 氧化铜绿 = 符文微光 */
+  --accent-verdigris-bright: #86bfa9;
+  --accent-rust: #b0492f;      /* 血锈色 = 警示/强调/CTA */
+  --accent-rust-bright: #d66240;
+  --accent-gold: #c9a24b;      /* 稀有/重点数据 */
+
+  /* 物品稀有度色（沿用ARPG通用惯例，非特定游戏专属素材） */
+  --rarity-normal: #c8c2b4;
+  --rarity-magic: #6f9fd8;
+  --rarity-rare: #e8d55c;
+  --rarity-unique: #af6025;
+
+  /* 字体 */
+  --font-display: "Cinzel", "Noto Serif SC", serif;
+  --font-body: "Inter", "Noto Sans SC", -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", "Noto Sans Mono SC", monospace;
+
+  /* 间距/圆角：直角为主，只有交互控件用极小圆角 */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+
+  --shadow-panel: 0 1px 0 rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.35);
+}
+
+* { box-sizing: border-box; }
+
+html {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  line-height: 1.6;
+  /* 极细噪点纹理，模拟旧纸/氧化金属，避免纯色平板感 */
+  background-image:
+    radial-gradient(circle at 20% 10%, rgba(92,133,119,0.05), transparent 40%),
+    radial-gradient(circle at 80% 60%, rgba(176,73,47,0.04), transparent 45%);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text);
+  margin-top: 0;
+}
+
+h1 { font-size: clamp(1.8rem, 3vw, 2.6rem); }
+h2 { font-size: clamp(1.4rem, 2.2vw, 1.9rem); border-bottom: 1px solid var(--border-hairline); padding-bottom: var(--space-1); }
+h3 { font-size: 1.2rem; color: var(--accent-verdigris-bright); }
+
+a { color: var(--accent-verdigris-bright); text-decoration: none; }
+a:hover { text-decoration: underline; }
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--accent-gold);
+  outline-offset: 2px;
+}
+
+code, .mono { font-family: var(--font-mono); }
+
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 0 var(--space-2);
+}
+
+/* TL;DR / 摘要框：所有Build页顶部必用 */
+.tldr-box {
+  background: var(--bg-elevated);
+  border-left: 3px solid var(--accent-verdigris);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  margin: var(--space-3) 0;
+  box-shadow: var(--shadow-panel);
+}
+.tldr-box h3 { margin-top: 0; }
+.tldr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+.tldr-item .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-faint); }
+.tldr-item .value { font-family: var(--font-display); font-size: 1.05rem; color: var(--accent-gold); }
+
+/* 版本更新条：常青页顶部的"最后更新"标注 */
+.version-flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--accent-rust-bright);
+  border: 1px solid var(--accent-rust);
+  border-radius: var(--radius-sm);
+  padding: 0.15em 0.6em;
+  background: rgba(176,73,47,0.08);
+}
+
+/* 相关攻略/内链模块 */
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+.related-card {
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2);
+  background: var(--bg-elevated);
+  transition: border-color 0.15s ease;
+}
+.related-card:hover { border-color: var(--accent-verdigris); }
+.related-card .kicker { font-size: 0.7rem; text-transform: uppercase; color: var(--text-faint); letter-spacing: 0.08em; }
+
+.faq-item summary {
+  cursor: pointer;
+  font-family: var(--font-display);
+  color: var(--text);
+  padding: var(--space-1) 0;
+  border-bottom: 1px solid var(--border-hairline);
+}
+.faq-item[open] summary { color: var(--accent-verdigris-bright); }
+.faq-item p { color: var(--text-dim); }

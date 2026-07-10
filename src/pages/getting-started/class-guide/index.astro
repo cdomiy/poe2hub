@@ -1,0 +1,50 @@
+---
+import { getCollection } from "astro:content";
+import SiteLayout from "../../../layouts/SiteLayout.astro";
+
+const classes = await getCollection("classes");
+const sorted = [...classes].sort((a, b) => a.data.title.localeCompare(b.data.title));
+---
+<SiteLayout
+  title="PoE2 Class Guide — All 8 Classes Compared"
+  description="Every Path of Exile 2 class compared: attribute focus, weapon type, playstyle, and which Ascendancy to pick first."
+>
+  <h1>Class Guide</h1>
+  <p class="intro">
+    8 classes are live as of patch 0.5.4b. Any class can eventually use any weapon or skill, but
+    each has a starting identity worth understanding before you commit. Pick based on playstyle,
+    not perceived power, all 8 have a currently-strong league-starter Ascendancy.
+  </p>
+
+  <div class="class-grid">
+    {sorted.map((c) => (
+      <a class="class-card" href={`/getting-started/class-guide/${c.slug}/`}>
+        <h3>{c.data.title}</h3>
+        <p class="class-meta mono">{c.data.attributeFocus} · {c.data.weaponType}</p>
+        <p class="class-summary">{c.data.summary}</p>
+      </a>
+    ))}
+  </div>
+</SiteLayout>
+
+<style>
+  .intro { color: var(--text-dim); max-width: 680px; }
+  .class-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+  }
+  .class-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-hairline);
+    border-left: 3px solid var(--accent-verdigris);
+    border-radius: var(--radius-sm);
+    padding: var(--space-2);
+    color: var(--text);
+  }
+  .class-card:hover { border-color: var(--accent-verdigris-bright); text-decoration: none; }
+  .class-card h3 { margin: 0 0 0.3rem; }
+  .class-meta { color: var(--text-faint); font-size: 0.78rem; text-transform: uppercase; margin: 0 0 0.5rem; }
+  .class-summary { color: var(--text-dim); font-size: 0.9rem; margin: 0; }
+</style>

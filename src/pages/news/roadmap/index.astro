@@ -1,0 +1,157 @@
+---
+import SiteLayout from "../../../layouts/SiteLayout.astro";
+import FaqAccordion from "../../../components/FaqAccordion.astro";
+
+const timeline = [
+  {
+    version: "0.1.0",
+    name: "Early Access Launch",
+    dates: "Dec 6, 2024 – Apr 4, 2025",
+    duration: "119 days",
+    highlights: [
+      "Path of Exile 2 enters Early Access with 6 base classes: Warrior, Witch, Ranger, Mercenary, Sorceress, and Monk",
+      "Initial Ascendancies: Titan, Warbringer, Infernalist, Blood Mage, Deadeye, Pathfinder, Witchhunter, Gemling Legionnaire, Invoker, Acolyte of Chayula",
+    ],
+  },
+  {
+    version: "0.2.0",
+    name: "Dawn of the Hunt",
+    dates: "Apr 4, 2025 – Sep 19, 2025",
+    duration: "168 days (longest league to date)",
+    highlights: [
+      "Introduced the Huntress class — the first new archetype added after launch",
+      "New Ascendancies: Amazon and Ritualist",
+      "Added the Hunt league mechanic and a wave of new unique items",
+    ],
+  },
+  {
+    version: "0.3.0",
+    name: "The Third Edict",
+    dates: "Sep 19, 2025 – Dec 12, 2025",
+    duration: "84 days (shortest league to date)",
+    highlights: [
+      "Widely considered the most impactful Early Access update before 0.5.0",
+      "Added Act 4 and three Interlude Acts, extending the story past Act 3 for the first time",
+      "Introduced asynchronous trading via the Merchant's Tab",
+      "Added 8 new bosses across the Ngamakanui Archipelago's eight islands",
+      "First full seasonal challenge league",
+    ],
+  },
+  {
+    version: "0.4.0",
+    name: "The Last of the Druids",
+    league: "Fate of the Vaal",
+    dates: "Dec 12, 2025 – May 1, 2026",
+    duration: "140 days",
+    highlights: [
+      "Introduced the Druid class with Bear, Wolf, and Wyvern shapeshifting forms",
+      "New Ascendancies: Shaman and Oracle",
+      "Added 30+ new support gems and 250+ new passive skills",
+      "Added a new pinnacle boss",
+      "A 3-day free weekend accompanied launch across PC, Xbox, and PS5",
+    ],
+  },
+  {
+    version: "0.5.0",
+    name: "Return of the Ancients",
+    league: "Runes of Aldur",
+    dates: "May 29, 2026 – present",
+    duration: "ongoing (128+ days so far)",
+    highlights: [
+      "The largest update in PoE2's Early Access history — a full endgame overhaul including the Atlas Tree rework and revised Waystone progression",
+      "Nearly 200 new skill gems spanning active skills, supports, and companion abilities",
+      "New Ascendancies: Spirit Walker (Huntress) and Martial Artist (Monk)",
+      "Introduced the Runes of Aldur league mechanic, Runic Recipes, and the Runeforging system",
+      "Subsequent 0.5.1–0.5.4b patches reworked Breach, Abyss, Delirium, Expedition, and Temple reward structures",
+    ],
+  },
+];
+
+const faqs = [
+  {
+    q: "When is Path of Exile 2's 1.0 full release?",
+    a: "Not officially confirmed as an exact date. Creative Director Jonathan Rogers has confirmed 1.0 is targeted for late 2026, and community consensus points to December 2026, with ExileCon 2026 in November expected to reveal the specific date. Treat any specific date you see elsewhere as unofficial until GGG confirms it directly.",
+  },
+  {
+    q: "Will there be a 0.6.0 patch before 1.0?",
+    a: "This is genuinely unclear from official sources — some reporting suggests 0.5.0 is intended to run directly into 1.0, while other coverage speculates on a 0.6.0 in between. Don't plan around either scenario as confirmed fact.",
+  },
+  {
+    q: "How many classes will PoE2 have at full release?",
+    a: "The stated target is 12 base classes with 36 Ascendancies total. 8 classes are live as of 0.5.4b (Warrior, Witch, Ranger, Mercenary, Sorceress, Monk, Huntress, Druid). The remaining 4 — commonly cited as Duelist, Templar, Shadow, and Marauder — are planned but not yet released, and GGG has emphasized a polished endgame takes priority over a complete roster for 1.0.",
+  },
+  {
+    q: "Will Path of Exile 2 be free at 1.0?",
+    a: "Yes — the plan is a transition from paid Early Access ($29.99 Supporter Pack) to permanent free-to-play at full release, matching how the original Path of Exile is distributed.",
+  },
+  {
+    q: "What happened to the Fate of the Vaal league?",
+    a: "Fate of the Vaal was the 0.4.0 league (running alongside The Last of the Druids update) and ended when 0.5.0 launched — characters migrated to Standard or Hardcore Early Access leagues with no wipe.",
+  },
+];
+---
+<SiteLayout
+  title="PoE2 Version History & Roadmap"
+  description="A complete timeline of every Path of Exile 2 patch since Early Access launch, plus what's confirmed and unconfirmed about the upcoming 1.0 release."
+>
+  <p class="version-flag">Current patch: 0.5.4b · Runes of Aldur league</p>
+  <h1>PoE2 Version History & Roadmap</h1>
+  <p class="intro">
+    Every major Path of Exile 2 update since Early Access launched, in order, plus what's
+    actually confirmed (versus speculated) about the road to 1.0.
+  </p>
+
+  <div class="timeline">
+    {timeline.map((t) => (
+      <div class="timeline-entry">
+        <div class="timeline-version mono">{t.version}</div>
+        <div class="timeline-body">
+          <h3>{t.name}{t.league && <span class="league-tag"> · {t.league} league</span>}</h3>
+          <p class="timeline-dates mono">{t.dates} — {t.duration}</p>
+          <ul>
+            {t.highlights.map((h) => <li>{h}</li>)}
+          </ul>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <h2>What's next: the road to 1.0</h2>
+  <div class="tldr-box">
+    <h3>Confirmed</h3>
+    <ul>
+      <li>1.0 is targeted for late 2026, per Creative Director Jonathan Rogers</li>
+      <li>ExileCon 2026 runs in November — expected to reveal the specific 1.0 date</li>
+      <li>1.0 transitions the game to permanent free-to-play</li>
+      <li>The target roster is 12 classes / 36 Ascendancies — 8 classes / 22 Ascendancies are live now</li>
+    </ul>
+    <h3>Unconfirmed / community speculation — treat with caution</h3>
+    <ul>
+      <li>A specific December 2026 release date (community consensus, not an official GGG statement)</li>
+      <li>Whether a 0.6.0 patch lands before 1.0, or 0.5.0 runs directly into it</li>
+      <li>Which specific classes (commonly cited: Duelist, Templar, Shadow, Marauder) launch with 1.0 versus after</li>
+    </ul>
+  </div>
+
+  <FaqAccordion faqs={faqs} />
+</SiteLayout>
+
+<style>
+  .intro { color: var(--text-dim); max-width: 680px; }
+  .timeline { margin: var(--space-3) 0; }
+  .timeline-entry {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: var(--space-2);
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--border-hairline);
+  }
+  .timeline-version { color: var(--accent-rust-bright); font-size: 1.1rem; padding-top: 0.2rem; }
+  .timeline-body h3 { margin: 0 0 0.2rem; }
+  .league-tag { color: var(--accent-verdigris-bright); font-size: 0.85rem; font-weight: 400; }
+  .timeline-dates { color: var(--text-faint); font-size: 0.85rem; margin: 0 0 0.5rem; }
+  .timeline-body ul { color: var(--text-dim); margin: 0; padding-left: 1.2em; }
+  @media (max-width: 560px) {
+    .timeline-entry { grid-template-columns: 1fr; }
+  }
+</style>

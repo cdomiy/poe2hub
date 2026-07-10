@@ -1,0 +1,59 @@
+---
+import { getCollection } from "astro:content";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+
+const bosses = await getCollection("bosses");
+const pinnacle = bosses.filter((b) => b.data.category === "pinnacle");
+const campaign = bosses.filter((b) => b.data.category === "campaign");
+---
+<SiteLayout
+  title="PoE2 Boss Guides"
+  description="Phase-by-phase fight guides for Path of Exile 2's campaign and pinnacle bosses."
+>
+  <h1>Boss Guides</h1>
+  <p class="intro">Phase breakdowns, common death causes, and the builds that handle each fight well.</p>
+
+  <h2>Pinnacle Bosses</h2>
+  {pinnacle.length === 0 && <p class="empty">More pinnacle boss guides are on the way.</p>}
+  <div class="boss-grid">
+    {pinnacle.map((b) => (
+      <a class="boss-card" href={`/bosses/${b.slug}/`}>
+        <span class="boss-name">{b.data.title}</span>
+        {b.data.recommendedLevel && <span class="boss-meta mono">Rec. Level {b.data.recommendedLevel}</span>}
+      </a>
+    ))}
+  </div>
+
+  <h2>Campaign Bosses</h2>
+  {campaign.length === 0 && <p class="empty">More campaign boss guides are on the way.</p>}
+  <div class="boss-grid">
+    {campaign.map((b) => (
+      <a class="boss-card" href={`/bosses/${b.slug}/`}>
+        <span class="boss-name">{b.data.title}</span>
+        {b.data.recommendedLevel && <span class="boss-meta mono">Rec. Level {b.data.recommendedLevel}</span>}
+      </a>
+    ))}
+  </div>
+</SiteLayout>
+
+<style>
+  .intro { color: var(--text-dim); }
+  .empty { color: var(--text-faint); font-style: italic; }
+  .boss-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
+  }
+  .boss-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-hairline);
+    border-left: 3px solid var(--accent-rust);
+    border-radius: var(--radius-sm);
+    padding: var(--space-2);
+    color: var(--text);
+  }
+  .boss-card:hover { border-color: var(--accent-rust-bright); text-decoration: none; }
+  .boss-name { display: block; font-family: var(--font-display); }
+  .boss-meta { display: block; color: var(--text-faint); font-size: 0.82rem; margin-top: 0.3rem; }
+</style>

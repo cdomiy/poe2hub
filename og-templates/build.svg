@@ -1,0 +1,42 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bgGlowA" cx="15%" cy="10%" r="50%">
+      <stop offset="0%" stop-color="#5c8577" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#5c8577" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bgGlowB" cx="90%" cy="80%" r="55%">
+      <stop offset="0%" stop-color="#b0492f" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#b0492f" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="#16130f"/>
+  <rect width="1200" height="630" fill="url(#bgGlowA)"/>
+  <rect width="1200" height="630" fill="url(#bgGlowB)"/>
+
+  <!-- 细边框，模拟旧铁板边缘 -->
+  <rect x="24" y="24" width="1152" height="582" fill="none" stroke="#3a3226" stroke-width="1.5"/>
+
+  <!-- 品牌 -->
+  <text x="60" y="90" font-family="Cinzel" font-size="30" font-weight="600" fill="#c9a24b">PoE2 Hub</text>
+  <text x="60" y="118" font-family="Inter" font-size="16" fill="#6f6656" letter-spacing="2">PoE2 BUILD GUIDE</text>
+
+  <!-- Tier 徽章：仿宝石镶嵌 -->
+  <g transform="translate(1040, 60)">
+    <polygon points="40,0 80,40 40,80 0,40" fill="{{TIER_COLOR}}" opacity="0.9"/>
+    <polygon points="40,10 70,40 40,70 10,40" fill="#16130f" opacity="0.25"/>
+    <text x="40" y="48" font-family="Cinzel" font-size="30" font-weight="700" fill="#16130f" text-anchor="middle">{{TIER}}</text>
+  </g>
+
+  <!-- 标题 -->
+  <foreignObject x="60" y="240" width="900" height="220">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="font-family:Cinzel,serif; font-size:56px; font-weight:600; color:#e4dcc8; line-height:1.25;">
+      {{TITLE}}
+    </div>
+  </foreignObject>
+
+  <!-- 底部元信息条 -->
+  <line x1="60" y1="500" x2="1140" y2="500" stroke="#3a3226" stroke-width="1"/>
+  <text x="60" y="540" font-family="IBM Plex Mono" font-size="20" fill="#a89e88">{{CLASS}} · {{ASCENDANCY}}</text>
+  <text x="1140" y="540" font-family="IBM Plex Mono" font-size="20" fill="#86bfa9" text-anchor="end">Patch {{PATCH}}</text>
+</svg>
