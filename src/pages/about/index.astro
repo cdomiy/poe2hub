@@ -6,21 +6,36 @@ const jsonLd = {
   "@type": "Organization",
   name: "PoE2 Hub",
   url: "https://poe2hub.net",
+  contactPoint: {
+    "@type": "ContactPoint",
+    email: "contact@poe2hub.net",
+    contactType: "customer support"
+  }
 };
 ---
 <SiteLayout
   title="About PoE2 Hub"
-  description="PoE2 Hub is a community guide site for Path of Exile 2, covering build guides, boss fight breakdowns, league mechanics, and free tools like the Build Planner and Chromatic Orb Calculator."
+  description="PoE2 Hub is an independent guide site for Path of Exile 2, covering build guides, boss fight breakdowns, league mechanics, and free tools like the Build Planner and Chromatic Orb Calculator."
 >
   <h1>About PoE2 Hub</h1>
 
   <h2>What is PoE2 Hub</h2>
   <p>
-    PoE2 Hub is a community guide platform for Path of Exile 2. We put together build guides,
-    boss fight breakdowns, league mechanic explainers, and practical tools, cross-checked
-    against official sources and established community guides rather than assembled from
-    guesswork. The goal is straightforward: give players a direct answer without wading through
-    ten tabs of forum threads to get there.
+    PoE2 Hub is an independent guide and reference site for Path of Exile 2,
+    built by players, for players. Every page aims to answer a real question a
+    player actually has, with working detail rather than filler. We put together
+    build guides, boss fight breakdowns, league mechanic explainers, and practical
+    tools, cross-checked against official sources and established community guides
+    rather than assembled from guesswork.
+  </p>
+
+  <h2>Our standards</h2>
+  <p>
+    Game data on this site is cross-checked against multiple independent
+    sources, including the game files themselves where possible. Where a
+    value could not be confirmed, we say so instead of presenting it as
+    fact. Pages that depend on patch-specific numbers state which game
+    version they apply to.
   </p>
 
   <h2>Our Tools</h2>
@@ -38,17 +53,18 @@ const jsonLd = {
     patches, each page carries a version note showing what it was last checked against.
   </p>
 
+  <h2>Independence</h2>
+  <p>
+    PoE2 Hub is a fan-made resource. It is not affiliated with,
+    sponsored by, or endorsed by Grinding Gear Games. Path of Exile 2 is a
+    registered trademark of Grinding Gear Games. All game content, item names,
+    and artwork referenced on this site remain the property of their
+    respective owners.
+  </p>
+
   <h2>Contact</h2>
   <p>
     Questions, corrections, or feedback: <a href="mailto:contact@poe2hub.net">contact@poe2hub.net</a>
-  </p>
-
-  <h2>Disclaimer</h2>
-  <p>
-    PoE2 Hub is an independent fan-run site and is not affiliated with or endorsed by Grinding
-    Gear Games. Path of Exile 2 is a registered trademark of Grinding Gear Games. All game
-    content, item names, and artwork referenced on this site remain the property of their
-    respective owners.
   </p>
 
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
