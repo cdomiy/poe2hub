@@ -19,12 +19,14 @@ const tierColor: Record<string, string> = {
 };
 ---
 <SiteLayout
-  title="0.5.x Build Tier List"
-  description="Path of Exile 2 current-patch build strength rankings, filterable by class and playstyle"
+  title="PoE2 Tier List — Best Builds & Classes in Patch 0.5 (0.5.4b)"
+  description="Complete Path of Exile 2 ascendancy tier list for Patch 0.5.4b. Martial Artist, Spirit Walker, and Gemling Legionnaire dominate — see why and find the best league starter for your playstyle."
 >
   <p class="version-flag">Rankings aligned to: 0.5.4b · updated within 24h of every balance patch</p>
-  <h1>Build Tier List</h1>
-  <p class="intro">Ranked by strength, ease of play, and cost. Filter below, or jump straight into a build page for full gear and passive tree details.</p>
+
+  <h1>PoE2 Tier List — Best Builds & Classes in Patch 0.5</h1>
+
+  <p class="intro">The Runes of Aldur league (Patch 0.5) shook up the Path of Exile 2 meta more than any prior update. Eight new ascendancies entered the fray, Energy Shield was targeted with 64 separate nerfs, and several previously dominant builds were effectively removed from the game. This tier list ranks every ascendancy by endgame strength, league-start viability, and overall meta presence, using data from <a href="https://rankedmeta.com/poe-2/ascendancy-tier-list" target="_blank" rel="noopener">RankedMeta community votes</a> (967 ratings, 62 voters as of July 2026), pickrate data from poe.ninja, and consensus across <a href="https://gamerch.com/poe2/890306" target="_blank" rel="noopener">Gamerch</a>, <a href="https://mobalytics.gg/poe-2/builds" target="_blank" rel="noopener">Mobalytics</a>, and Chinese community sources.</p>
 
   <div class="filter-bar">
     <select id="filter-class">
@@ -52,6 +54,69 @@ const tierColor: Record<string, string> = {
       </a>
     ))}
   </div>
+
+  <h2 id="s-tier">S-Tier Ascendancies — The Meta Definers</h2>
+
+  <p>Three ascendancies sit firmly at the top of every community tier list, and they share one trait: they require no chase unique items to function at a high level. This makes them the strongest league starters and the safest picks for any player, whether you're fresh off the campaign or pushing Delirious maps.</p>
+
+  <h3>Martial Artist (Monk)</h3>
+
+  <p>The undisputed #1 ascendancy of Patch 0.5. The Martial Artist's <strong>Hollow Focus Technique</strong> creates Tempest Bells that are always Primed for Stun — hits against bells are guaranteed crits, and Killing Palm on bells generates free power charges for massive Falling Thunder bursts. Patch 0.5 increased the maximum active bells from 1 to 3, effectively tripling the damage multiplier from Act 1 onward. The <strong>Way of the Stonefist</strong> node converts any glove base into Fists of Stone with built-in onslaught and extra crit chance, meaning the build functions perfectly with zero unique items.</p>
+
+  <p>Defensively, <strong>Martial Adept</strong> reduces your ES recharge delay by consuming combo points — at 10 combo, the recharge delay drops enough to achieve near-infinite ES uptime, making the Martial Artist one of the few builds that actually <em>benefited</em> from the ES rework instead of suffering from it. Combined with the 0.5 Deflection buff and evasion improvements, a well-built Martial Artist sits at roughly 95% Deflect + 77% Evasion + 6K ES. Multiple build variants exist — check our <a href="/builds/monk/martial-artist/">full Martial Artist guide</a> for the Whirling Trinity, Giga Bonk, Hollow Petals, and Nuclear Assault paths.</p>
+
+  <h3>Spirit Walker (Huntress)</h3>
+
+  <p>Spirit Walker holds a <strong>19% pickrate</strong> on poe.ninja (22,597 tracked characters) — second only to Martial Artist overall. The <strong>Twister</strong> build received zero nerfs in the entire 0.5 patch cycle: no changes to base damage, scaling, or rotation frames. It requires no mandatory uniques, making it a top-tier SSF and league-start pick. The <strong>Wild Protector</strong> ascendancy node is taken by 100% of Spirit Walker players according to <a href="https://exileindex.com/ascendancies/huntress/spirit-walker/" target="_blank" rel="noopener">ExileIndex</a>, providing consistent companion damage that scales naturally with idol investment.</p>
+
+  <p>The <strong>Tame Beast</strong> mechanic lets you capture unique bosses as permanent companions, adding a layer of build customization that no other ascendancy offers. For a full breakdown of the Twister, Stag Launcher, and Zoo archetypes, see our <a href="/builds/huntress/spirit-walker/">Spirit Walker build guide</a>.</p>
+
+  <h3>Gemling Legionnaire (Mercenary)</h3>
+
+  <p>The Auto-Bomber Gemling build has risen sharply through the RankedMeta rankings, reaching S-tier in the most recent voting period. Its versatility is the key — the Gemling can leverage virtually any skill gem combination effectively, and the <strong>Auto-Bomber</strong> variant using stolen Flameblast mechanics (effectively taking what Chronomancer was supposed to do and doing it better) has proven both powerful and accessible. The community consensus is that Gemling Legionnaire has become "the most versatile ascendancy right now," according to <a href="https://www.pathofexile.com/forum/view-thread/3981889" target="_blank" rel="noopener">player feedback on the official forums</a>.</p>
+
+  <h2 id="a-tier">A-Tier Ascendancies — Strong and Reliable</h2>
+
+  <p>A-tier ascendancies are powerful endgame picks that may require slightly more investment or specific gear to reach their ceiling compared to the S-tier options.</p>
+
+  <p><strong>Disciple of Varashta</strong> (Sorceress) stands out here because its Djinn/minion archetype is largely unaffected by the ES nerfs — <strong>The Fourth Teaching</strong> and <strong>Navira's Well</strong> provide ES scaling that still works in 0.5, making it one of the few ascendancies where ES remains strong early. It's also the premier platform for <strong>CoC Comet</strong> builds alongside Stormweaver. The <strong>Deadeye</strong> benefits from the Lightning Arrow nerfs pushing players toward Ice Shot, where Snipe on frozen targets delivers a 3,062% damage multiplier — the highest single-target burst in the game. The <strong>Titan</strong> remains the best Warrior ascendancy for slam/stun builds, with <strong>Hulking Form</strong> massively amplifying passive tree bonuses. The <strong>Oracle</strong>'s "one-button" Plant build cruises through endgame content using Forced Outcome to guarantee crits, though its build diversity is narrower than the S-tier picks. The <strong>Amazon</strong>'s Whirlwind build is a sleeper hit that benefits from global nerfs to competing archetypes — when everything else gets weaker, the spin-to-win approach stays the same.</p>
+
+  <h2 id="b-tier">B-Tier Ascendancies — Viable With Caveats</h2>
+
+  <p>These ascendancies are functional and can clear all content, but they either have a lower power ceiling, narrower build diversity, or require more specific gear to perform. The <strong>Stormweaver</strong> is the best league starter in this tier — Spark works from zone 1 and transitions naturally into CoC Comet for endgame — but the ES nerfs hit its late-game defensive layers hard. The <strong>Shaman</strong>'s Meteor Bear build is a genuine joy to play and avoids ES entirely through armor stacking, but it's a niche archetype compared to the broader options above. The <strong>Blood Mage</strong>, <strong>Lich</strong>, <strong>Infernalist</strong>, and <strong>Tactician</strong> all have viable builds but sit in B-tier because they lack the raw power or flexibility of the A-tier picks. The <strong>Pathfinder</strong> was devastated by the Ghost Dance interval nearly doubling and the Poison nerfs cutting its damage roughly in half — it went from a top-3 ascendancy to a shadow of its former self. The <strong>Chronomancer</strong> is perhaps the most controversial B-tier entry — the community has called it "a restrictive mess" on the <a href="https://www.pathofexile.com/forum/view-thread/3981889" target="_blank" rel="noopener">official forums</a>, with Phased Form actively hurting most builds and its signature nodes lacking synergy.</p>
+
+  <h2 id="c-tier">C-Tier Ascendancies — Awaiting Buffs</h2>
+
+  <p>These ascendancies are currently underperforming relative to their class alternatives. The <strong>Invoker</strong> had the most dramatic fall in 0.5 — it started the league at provisional S-tier in early RankedMeta voting, then plummeted to C as players realized it was completely outclassed by Martial Artist for the Monk slot. The <strong>Warbringer</strong>, despite being a new ascendancy, underperforms compared to Titan on virtually every metric. The <strong>Acolyte of Chayula</strong> has a niche chaos/Darkness identity but lacks the numbers to compete. The <strong>Smith of Kitava</strong> and <strong>Ritualist</strong> round out the bottom — functional but not recommended when stronger alternatives exist in the same class.</p>
+
+  <h2 id="league-starters">Best League Starters in Patch 0.5</h2>
+
+  <p>If you're starting a new league or rolling a fresh character, these are the builds that perform well from Act 1 through red maps without needing any specific unique items:</p>
+
+  <ol>
+    <li><strong>Martial Artist Monk</strong> — Bell mechanic works from level 1; zero unique dependencies; scales naturally into endgame. See our <a href="/builds/monk/martial-artist/">Martial Artist build guide</a>.</li>
+    <li><strong>Twister Spirit Walker</strong> — No mandatory uniques; fastest campaign speed (~3 hours); zero nerfs in 0.5. Full details in our <a href="/builds/huntress/spirit-walker/">Spirit Walker guide</a>.</li>
+    <li><strong>Spark Stormweaver</strong> — Full gameplay from zone 1; natural CoC Comet transition for endgame. Check the <a href="/mechanics/passive-tree/">passive tree guide</a> for optimal pathing.</li>
+    <li><strong>Plant Oracle Druid</strong> — "One button build" that clears all content; Forced Outcome guarantees crits; budget-friendly.</li>
+    <li><strong>Meteor Bear Shaman</strong> — Become a bear that rains meteors; Furious Wellspring provides constant rage; armor-based defense avoids ES nerfs entirely.</li>
+    <li><strong>Slam Titan</strong> — Amazing clear and single-target; Hulking Form amplifies your entire passive tree investment.</li>
+  </ol>
+
+  <h2 id="meta-shifts">What Changed in Patch 0.5 — Key Meta Shifts</h2>
+
+  <p>Understanding the tier list requires understanding the patch that created it. Here are the most impactful changes:</p>
+
+  <p><strong>Energy Shield rework (64 targeted nerfs):</strong> The single most defining change of Patch 0.5. ES recharge was gutted (Mystic Stance recharge start 30%→12%, small passives 15%→6%), resource leech was capped at one active instance with a 40k damage cap, and multiple ES recharge nodes were halved. The intent was to kill "blue life" builds that relied on instant full-bar recovery loops. The result: pure ES casters from 0.4 are effectively dead, but creative players found workarounds — the Svalinn block meta (dual-socket shield + Ox Idol forcing 63%+ block chance) and Martial Artist's combo→ES recharge loop show that ES isn't gone, just different. Our <a href="/mechanics/expedition/">Expedition mechanic guide</a> covers how to efficiently farm the gear you need for these defensive pivots.</p>
+
+  <p><strong>Poison Pathfinder deleted:</strong> Overwhelming Toxicity changed from 35% less to 50% less Poison Duration; Running Assault nerfed; Toxic Growth cap cut to 5. The combined effect roughly halves total damage output. Poison Pathfinder went from a top-3 ascendancy to unplayable for league starting.</p>
+
+  <p><strong>Infernal Legion minions extinct:</strong> Tier 3 was removed entirely and base life burn damage was halved to 10%. The screen-clearing minion archetype that dominated 0.4 is gone. If you want a minion build in 0.5, Spirit Walker or Disciple of Varashta are the viable options.</p>
+
+  <p><strong>New ascendancies reshuffled the meta:</strong> Martial Artist and Spirit Walker immediately claimed the top spots, while Warbringer and Acolyte of Chayula landed at the bottom. This 4-of-8 miss rate for new ascendancies suggests GGG's balance team still has work to do — but the two hits are so dominant that they define the entire meta.</p>
+
+  <h2 id="conclusion">Conclusion</h2>
+
+  <p>Patch 0.5 is the most transformative update Path of Exile 2 has seen. The ES rework killed some of the most oppressive defensive builds, Poison and Infernal Legion were nerfed into near-irrelevance, and two new ascendancies — Martial Artist and Spirit Walker — immediately claimed the top of every tier list. The good news for players is that league starter diversity is strong: at least six ascendancies have viable zero-to-endgame paths. Pick Martial Artist if you want the strongest all-around option, Spirit Walker if you prefer minion/twister gameplay, or Stormweaver if you want a caster that naturally transitions into the always-powerful CoC Comet endgame. Whatever you choose, this tier list and the linked build guides will keep you on the right side of the meta.</p>
 </SiteLayout>
 
 <script>
@@ -73,7 +138,8 @@ const tierColor: Record<string, string> = {
 </script>
 
 <style>
-  .intro { color: var(--text-dim); }
+  .intro { color: var(--text-dim); line-height: 1.7; }
+  .intro a { color: var(--accent-gold); text-decoration: underline; }
   .filter-bar { display: flex; gap: var(--space-2); margin: var(--space-3) 0; }
   .filter-bar select {
     background: var(--bg-elevated);
@@ -101,6 +167,11 @@ const tierColor: Record<string, string> = {
   }
   .build-name { font-family: var(--font-display); }
   .build-meta, .build-cost { font-size: 0.85rem; color: var(--text-faint); font-family: var(--font-mono); }
+  h2 { margin-top: 2.5rem; }
+  h3 { margin-top: 1.5rem; color: var(--accent-gold); }
+  p { line-height: 1.7; }
+  ol { line-height: 1.9; }
+  ol li a, p a { color: var(--accent-gold); text-decoration: underline; }
   @media (max-width: 640px) {
     .tier-row { grid-template-columns: 32px 1fr; }
     .build-meta, .build-cost { grid-column: 2; }
