@@ -19,7 +19,9 @@ commonDeaths:
 drops:
   - "A specific rune blueprint, good for bleed/poison builds"
 relatedBuilds:
-  - "huntress/spirit-walker"
+  - "monk/martial-artist"
+  - "mercenary/gemling-legionnaire"
+  - "ranger/deadeye"
 ---
 ## Full Fight Guide
 

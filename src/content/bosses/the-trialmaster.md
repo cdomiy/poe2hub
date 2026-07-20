@@ -25,7 +25,10 @@ drops:
   - "A guaranteed Unique item from his specific loot table on every kill, including corrupted-roll items like The Adorned and Mahuxotl's Machination"
   - "A chance at a corrupted Inscribed Ultimatum, letting you sacrifice currency for a doubled reward on a successful follow-up run"
   - "Your final Ascendancy points on your first-ever kill, alongside Soul Cores collected throughout the Trial of Chaos leading up to him"
-relatedBuilds: []
+relatedBuilds:
+  - "huntress/spirit-walker"
+  - "sorceress/stormweaver"
+  - "warrior/titan"
 ---
 
 ## Full Fight Guide

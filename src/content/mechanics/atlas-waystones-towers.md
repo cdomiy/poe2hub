@@ -10,7 +10,10 @@ changelog:
   - version: "0.2.0"
     date: 2025-04-04
     change: "Tower and Tablet overhaul, Towers became less frequent but more powerful, with Tablets providing more mechanics that scale further with higher Waystone tiers"
-relatedBuilds: []
+relatedBuilds:
+  - "ranger/deadeye"
+  - "sorceress/stormweaver"
+  - "mercenary/gemling-legionnaire"
 ---
 
 ## Overview

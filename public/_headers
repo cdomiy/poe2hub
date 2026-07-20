@@ -1,0 +1,15 @@
+# Static assets - long cache (1 year)
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# OG images - long cache
+/og/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# HTML pages - short cache with revalidation
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Default
+/*
+  Cache-Control: public, max-age=0, must-revalidate

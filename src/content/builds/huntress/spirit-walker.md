@@ -89,9 +89,16 @@ dataSources:
   - "Boostmatch Huntress best-build guide"
   - "PoE2Wiki Fextralife Ascendancies overview page (Spirit Walker node breakdown)"
 relatedMechanics:
+  - "abyss"
+  - "atlas-masters"
+  - "breach"
+  - "delirium"
   - "runes-of-aldur"
 relatedBosses:
-  - "the-bodach"
+  - "benedictus-first-herald"
+  - "jamanra-the-abomination"
+  - "the-trialmaster"
+  - "xesht-we-that-are-one"
 ---
 
 ## Why This Ascendancy

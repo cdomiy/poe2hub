@@ -27,7 +27,10 @@ commonDeaths:
   - "Letting Bone Snake summons stack up while focused purely on the boss"
 drops:
   - "Book of Specialization on defeat, granting 2 additional Weapon Set Passive Skill Points, a meaningful power boost for dual weapon-set builds"
-relatedBuilds: []
+relatedBuilds:
+  - "ranger/deadeye"
+  - "huntress/amazon"
+  - "monk/martial-artist"
 ---
 ## Full Fight Guide
 

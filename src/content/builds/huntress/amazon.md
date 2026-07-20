@@ -81,6 +81,8 @@ dataSources:
   - "VULKK.com Amazon Huntress ascendancy breakdown"
   - "PoE2Wiki Fextralife Amazon page"
   - "Maxroll.gg PoE 2 Ascendancy Overview"
+relatedBosses:
+  - "kabala-constrictor-queen"
 relatedMechanics:
   - "runes-of-aldur"
 ---

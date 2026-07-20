@@ -76,6 +76,8 @@ dataSources:
   - "Gamerant All Shaman & Oracle Ascendancy Class Nodes"
   - "KeenGamer PoE2 Druid Ascendancy Guide"
   - "RPGStash PoE2 Druid Ascendancy Classes Explained"
+relatedBosses:
+  - "tavakai-the-consumed"
 relatedMechanics:
   - "runes-of-aldur"
 ---

@@ -20,7 +20,10 @@ commonDeaths:
 drops:
   - "Chase-tier uniques worth tens to hundreds of Divine Orbs on the market, including well-rolled pieces like Sacred Flame or class-specific jewels such as Prism of Belief"
   - "Crisis Fragments required to progress toward the Arbiter of Divinity encounter"
-relatedBuilds: []
+relatedBuilds:
+  - "monk/martial-artist"
+  - "warrior/titan"
+  - "sorceress/stormweaver"
 ---
 ## Full Fight Guide
 

@@ -13,7 +13,10 @@ changelog:
   - version: "0.5.3"
     date: 2026-06-18
     change: "Softened fog scaling for early endgame while making Simulacrums harder — Simulacrums now start at 100% Deliriousness scaling up to 200%, and several long-standing bugs affecting Grand Mirror scaling were fixed"
-relatedBuilds: []
+relatedBuilds:
+  - "monk/martial-artist"
+  - "warrior/titan"
+  - "huntress/spirit-walker"
 ---
 
 ## Overview

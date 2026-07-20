@@ -23,7 +23,10 @@ commonDeaths:
   - "Getting caught by the telegraphed overhead sword slam late in the fight with flasks already depleted"
 drops:
   - "Standard Act 2 completion rewards and story progression, defeating him unlocks Act 3"
-relatedBuilds: []
+relatedBuilds:
+  - "monk/martial-artist"
+  - "huntress/spirit-walker"
+  - "sorceress/stormweaver"
 ---
 ## Full Fight Guide
 

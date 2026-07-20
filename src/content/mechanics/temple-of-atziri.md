@@ -10,7 +10,10 @@ changelog:
   - version: "0.5.0"
     date: 2026-05-29
     change: "Made a permanent core mechanic rather than a temporary league feature. Atziri's Temple now sits on the Atlas northeast of your starting location, in the city of Lira Vaal. The 'Snake Strategy' room-exploit was patched by downgrading unstable-but-unremovable rooms to standard corridors"
-relatedBuilds: []
+relatedBuilds:
+  - "ranger/pathfinder"
+  - "witch/blood-mage"
+  - "warrior/titan"
 ---
 
 ## Overview

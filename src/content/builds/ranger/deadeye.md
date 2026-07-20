@@ -96,8 +96,16 @@ dataSources:
   - "PoE2Wiki Fextralife Deadeye page"
   - "Deltia's Gaming Deadeye ascendancy guide"
   - "Game8 Deadeye ascendancy overview"
+relatedBosses:
+  - "arbiter-of-divinity"
+  - "doryani-royal-thaumaturge"
+  - "kabala-constrictor-queen"
+  - "the-bodach"
+  - "zarokh-the-temporal"
 relatedMechanics:
-  - "runes-of-aldur"
+  - "abyss"
+  - "atlas-waystones-towers"
+  - "expedition"
 ---
 
 ## Why This Ascendancy

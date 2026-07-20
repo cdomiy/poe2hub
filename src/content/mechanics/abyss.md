@@ -10,7 +10,10 @@ changelog:
   - version: "0.5.3"
     date: 2026-06-18
     change: "Major reward pass, Abyssal Depths mini-bosses now guarantee Desecrated Currency, the Vessel of Kulemak's ring (Grip of Kulemak) gained 13 new modifiers, and Kulemak's Invitation value rose sharply once the fixes made the fight reliably profitable"
-relatedBuilds: []
+relatedBuilds:
+  - "huntress/spirit-walker"
+  - "sorceress/stormweaver"
+  - "ranger/deadeye"
 ---
 
 ## Overview

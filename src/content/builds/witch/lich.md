@@ -68,6 +68,8 @@ dataSources:
   - "aoeah.com 0.5 builds meta overview"
   - "VULKK.com All Classes and Ascendancies Explained"
   - "Maxroll.gg PoE 2 Class Overview"
+relatedBosses:
+  - "king-in-the-mists"
 relatedMechanics:
   - "runes-of-aldur"
 ---

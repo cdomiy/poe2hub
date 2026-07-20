@@ -11,7 +11,9 @@ changelog:
     date: 2025-12-12
     change: "Added Companion-themed and Life Recoup passive clusters, reworked Ancestral Bond, Trusted Kinship, and Vaal Pact keystones"
 relatedBuilds:
-  - "monk/invoker"
+  - "monk/martial-artist"
+  - "sorceress/stormweaver"
+  - "warrior/titan"
 ---
 
 ## Overview

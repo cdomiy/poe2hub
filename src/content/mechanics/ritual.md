@@ -10,7 +10,10 @@ changelog:
   - version: "0.5.2"
     date: 2026-06-11
     change: "Queen's Rituals now spawn 10 additional Omens in the first set of Favours, making them one of the densest Omen-farming layers in the endgame"
-relatedBuilds: []
+relatedBuilds:
+  - "warrior/titan"
+  - "monk/martial-artist"
+  - "witch/blood-mage"
 relatedBosses:
   - "the-bodach"
 ---

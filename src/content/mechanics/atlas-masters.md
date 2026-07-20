@@ -7,7 +7,10 @@ changelog:
   - version: "0.5.0"
     date: 2026-05-29
     change: "Masters of the Atlas launched alongside the full endgame overhaul, introducing Jado, Doryani, and Hilda as a secondary Ascendancy-style system for the Atlas"
-relatedBuilds: []
+relatedBuilds:
+  - "warrior/titan"
+  - "monk/martial-artist"
+  - "huntress/spirit-walker"
 ---
 
 ## Overview

@@ -23,7 +23,10 @@ commonDeaths:
   - "Underestimating the range of the T-shaped lightning beam in the final aerial phase"
 drops:
   - "Standard Act 3 boss rewards and story progression, defeating him leads directly into the endgame transition sequence with Alva"
-relatedBuilds: []
+relatedBuilds:
+  - "warrior/titan"
+  - "monk/martial-artist"
+  - "ranger/deadeye"
 ---
 ## Full Fight Guide
 

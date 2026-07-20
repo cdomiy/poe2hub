@@ -74,8 +74,12 @@ faqs:
     a: "Its crit-scaling ceiling is currently considered the best in its comparison group, the difficulty is about execution risk, not a lack of raw power."
 dataSources:
   - "Switchblade Gaming Sorceress/Witch crit-scaling comparison"
+relatedBosses:
+  - "atziri-the-red-queen"
+  - "king-in-the-mists"
 relatedMechanics:
-  - "runes-of-aldur"
+  - "ritual"
+  - "temple-of-atziri"
 ---
 
 ## Why This Ascendancy

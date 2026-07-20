@@ -13,7 +13,10 @@ changelog:
   - version: "0.5.3"
     date: 2026-06-18
     change: "Larger Breach Strongholds, faster Wombgift consumption, and a reworked Tear Open the Rift modifier pool with new named modifiers"
-relatedBuilds: []
+relatedBuilds:
+  - "sorceress/stormweaver"
+  - "witch/infernalist"
+  - "huntress/spirit-walker"
 ---
 
 ## Overview

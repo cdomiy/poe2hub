@@ -78,8 +78,12 @@ dataSources:
   - "PoE2Wiki Fextralife Gemling Legionnaire page"
   - "Mobalytics Gemling Legionnaire Twister build"
   - "Maxroll.gg Gemling Legionnaire Twister build guide"
+relatedBosses:
+  - "arbiter-of-divinity"
+  - "the-bodach"
 relatedMechanics:
-  - "runes-of-aldur"
+  - "atlas-waystones-towers"
+  - "expedition"
 ---
 
 ## Why This Ascendancy

@@ -91,8 +91,17 @@ dataSources:
   - "Game8 Stormweaver ascendancy overview"
   - "Deltia's Gaming Stormweaver ascendancy guide"
   - "PoE2Wiki Fextralife Stormweaver page"
+relatedBosses:
+  - "arbiter-of-ash"
+  - "benedictus-first-herald"
+  - "jamanra-the-abomination"
+  - "the-trialmaster"
+  - "xesht-we-that-are-one"
 relatedMechanics:
-  - "runes-of-aldur"
+  - "abyss"
+  - "atlas-waystones-towers"
+  - "breach"
+  - "passive-tree"
 ---
 
 ## Why This Ascendancy

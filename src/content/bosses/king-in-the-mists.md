@@ -19,7 +19,10 @@ commonDeaths:
   - "Losing track of the wisp trail in the Wildwood Maze and wasting the window before it disappears"
 drops:
   - "Gembloom Skull on your first kill, a permanent +30 Spirit item"
-relatedBuilds: []
+relatedBuilds:
+  - "witch/blood-mage"
+  - "witch/lich"
+  - "monk/martial-artist"
 ---
 ## Full Fight Guide
 

@@ -25,7 +25,10 @@ drops:
   - "Uul-Netol's Embrace — a Lineage Support Gem and one of the most sought-after chase rewards of the current league"
   - "Breach Rings and catalysts (Chayula's Catalyst, Flesh Catalyst) drop commonly in the Twisted Domain leading up to the fight"
   - "Otherworldly Book of Knowledge on your first clear"
-relatedBuilds: []
+relatedBuilds:
+  - "sorceress/stormweaver"
+  - "huntress/spirit-walker"
+  - "witch/infernalist"
 ---
 ## Full Fight Guide
 

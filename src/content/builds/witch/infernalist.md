@@ -67,8 +67,10 @@ dataSources:
   - "aoeah.com 0.5 Tier List (Infernalist nerf breakdown)"
   - "VULKK.com All Classes and Ascendancies Explained"
   - "Game8 List of Classes and Ascendancies"
+relatedBosses:
+  - "xesht-we-that-are-one"
 relatedMechanics:
-  - "runes-of-aldur"
+  - "breach"
 ---
 
 ## Why This Ascendancy

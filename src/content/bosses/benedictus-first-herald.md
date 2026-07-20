@@ -23,7 +23,10 @@ commonDeaths:
   - "Running out of safe space once the arena shrinks and continuing to kite as if it hadn't"
 drops:
   - "Required for main story progression (The Search questline), defeating him unlocks the Excavated Site and the Weapon reforging sequence"
-relatedBuilds: []
+relatedBuilds:
+  - "monk/martial-artist"
+  - "huntress/spirit-walker"
+  - "sorceress/stormweaver"
 ---
 ## Full Fight Guide
 

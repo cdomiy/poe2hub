@@ -21,7 +21,10 @@ drops:
   - "A random Unique Relic on each kill; using one in the Relic Altar for your next run unlocks a harder challenge version with its own exclusive reward"
   - "The Last Flame relic (which sets your Maximum Honour to 1) rewards the highly sought-after Temporalis body armour on a successful completion"
   - "Your final 2 Ascendancy points (7 and 8), completing your fourth ascension, on defeating the full 4-floor version for the first time"
-relatedBuilds: []
+relatedBuilds:
+  - "monk/martial-artist"
+  - "ranger/deadeye"
+  - "sorceress/chronomancer"
 ---
 
 ## Full Fight Guide

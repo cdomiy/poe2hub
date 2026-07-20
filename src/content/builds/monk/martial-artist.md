@@ -77,7 +77,22 @@ dataSources:
   - "RPGStash Martial Artist ascendancy guide"
   - "MMOSO Martial Artist ascendancy guide"
   - "Mobalytics Martial Artist leveling guide"
+relatedBosses:
+  - "arbiter-of-ash"
+  - "arbiter-of-divinity"
+  - "benedictus-first-herald"
+  - "doryani-royal-thaumaturge"
+  - "jamanra-the-abomination"
+  - "kabala-constrictor-queen"
+  - "king-in-the-mists"
+  - "tavakai-the-consumed"
+  - "the-bodach"
+  - "zarokh-the-temporal"
 relatedMechanics:
+  - "atlas-masters"
+  - "delirium"
+  - "passive-tree"
+  - "ritual"
   - "runes-of-aldur"
 ---
 

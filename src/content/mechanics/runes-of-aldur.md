@@ -15,6 +15,8 @@ changelog:
     change: "Rebalanced reward structures for Breach, Abyss, Delirium, Expedition, and Temple"
 relatedBuilds:
   - "huntress/spirit-walker"
+  - "monk/martial-artist"
+  - "druid/shaman"
 ---
 
 ## Overview

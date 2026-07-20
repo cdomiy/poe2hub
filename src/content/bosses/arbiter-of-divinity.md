@@ -20,7 +20,10 @@ commonDeaths:
 drops:
   - "Chase-tier unique items worth tens to hundreds of Divine Orbs, including class-defining pieces"
   - "Decree of Loyalty and other high-value uniques exclusive to this encounter's loot pool"
-relatedBuilds: []
+relatedBuilds:
+  - "monk/martial-artist"
+  - "mercenary/gemling-legionnaire"
+  - "ranger/deadeye"
 ---
 
 ## Full Fight Guide

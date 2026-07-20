@@ -24,7 +24,10 @@ commonDeaths:
 drops:
   - "Atziri's Medallion, which unlocks Atziri's Vault and six Royal Troves, the source of Atziri's Rule staff, the Architect's Orb, and (as of 0.5.4) the new Orb of Sacrifice currency"
   - "Other notable uniques from her pool include the Drillneck quiver, Atziri's Contempt spear, Atziri's Step boots, and Sacrificial Regalia"
-relatedBuilds: []
+relatedBuilds:
+  - "ranger/pathfinder"
+  - "witch/blood-mage"
+  - "warrior/titan"
 ---
 ## Full Fight Guide
 

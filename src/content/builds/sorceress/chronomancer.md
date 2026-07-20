@@ -91,6 +91,8 @@ dataSources:
   - "PoE2Wiki Fextralife Chronomancer page"
   - "Deltia's Gaming Chronomancer ascendancy guide"
   - "PoE-Vault Ice Nova Comet Chronomancer endgame build"
+relatedBosses:
+  - "zarokh-the-temporal"
 relatedMechanics:
   - "runes-of-aldur"
 ---

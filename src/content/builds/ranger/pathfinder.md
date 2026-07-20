@@ -77,8 +77,11 @@ dataSources:
   - "aoeah.com 0.5 Tier List (poison Pathfinder nerf notes)"
   - "PoE2Wiki Fextralife Pathfinder page"
   - "Game8 Pathfinder ascendancy overview"
+relatedBosses:
+  - "atziri-the-red-queen"
 relatedMechanics:
-  - "runes-of-aldur"
+  - "expedition"
+  - "temple-of-atziri"
 ---
 
 ## Why This Ascendancy

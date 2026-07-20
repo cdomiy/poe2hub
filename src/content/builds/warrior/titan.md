@@ -93,8 +93,18 @@ dataSources:
   - "Maxroll.gg Shield Wall/Whirling Assault/Boneshatter Titan build guides"
   - "PoE2Wiki Fextralife Titan page"
   - "Mobalytics Titan guide"
+relatedBosses:
+  - "arbiter-of-ash"
+  - "atziri-the-red-queen"
+  - "doryani-royal-thaumaturge"
+  - "tavakai-the-consumed"
+  - "the-trialmaster"
 relatedMechanics:
-  - "runes-of-aldur"
+  - "atlas-masters"
+  - "delirium"
+  - "passive-tree"
+  - "ritual"
+  - "temple-of-atziri"
 ---
 
 ## Why This Ascendancy

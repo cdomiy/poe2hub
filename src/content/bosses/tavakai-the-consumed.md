@@ -23,7 +23,10 @@ commonDeaths:
   - "Getting cornered by the wide, lingering AoE zones in Phase 3 while trying to force damage instead of respecting the openings"
 drops:
   - "Completes the Act 4 main quest, defeating him is required to finish The Search questline and unlocks the Interludes"
-relatedBuilds: []
+relatedBuilds:
+  - "warrior/titan"
+  - "monk/martial-artist"
+  - "druid/shaman"
 ---
 ## Full Fight Guide
 

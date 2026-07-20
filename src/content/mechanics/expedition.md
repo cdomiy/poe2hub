@@ -13,7 +13,10 @@ changelog:
   - version: "0.5.4"
     date: 2026-06-25
     change: "Added Liquid Verisium (sold by Farrow) to reroll a Remnant's Runic Inscription instead of accepting the default reveal"
-relatedBuilds: []
+relatedBuilds:
+  - "ranger/deadeye"
+  - "ranger/pathfinder"
+  - "mercenary/gemling-legionnaire"
 ---
 
 ## Overview
