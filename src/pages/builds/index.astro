@@ -1,0 +1,73 @@
+---
+import { getCollection } from "astro:content";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+
+const builds = await getCollection("builds");
+const classes = [...new Set(builds.map((b) => b.data.class))].sort();
+
+const tierColor: Record<string, string> = {
+  S: "var(--accent-rust-bright)",
+  A: "var(--rarity-rare)",
+  B: "var(--rarity-magic)",
+  C: "var(--text-faint)",
+};
+---
+<SiteLayout
+  title="PoE2 Build Guides — All Ascendancies (Patch 0.5)"
+  description="Browse all Path of Exile 2 build guides by class and ascendancy. Tier-rated, with gear priorities, passive trees, and leveling routes for Patch 0.5."
+>
+  <p class="version-flag">Aligned to: 0.5.4b · 22 builds across 8 classes</p>
+
+  <h1>Build Guides</h1>
+
+  <p class="intro">Complete build guides for every ascendancy in Path of Exile 2, ranked by tier and organized by class. Each guide includes gear priorities, passive tree paths, leveling routes, and FAQs. For a ranked comparison, see our <a href="/builds/tier-list/">Build Tier List</a>.</p>
+
+  {classes.map((cls) => (
+    <section class="class-section">
+      <h2>{cls}</h2>
+      <div class="build-grid">
+        {builds.filter((b) => b.data.class === cls).map((b) => (
+          <a class="build-card" href={`/builds/${b.slug}/`}>
+            <span class="tier-badge" style={`background:${tierColor[b.data.tier]}`}>{b.data.tier}</span>
+            <span class="build-name">{b.data.title}</span>
+            <span class="build-meta">{b.data.coreSkill} · {b.data.playstyle}</span>
+            <span class="build-cost">Cost: {b.data.estCost}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  ))}
+</SiteLayout>
+
+<style>
+  .intro { color: var(--text-dim); line-height: 1.7; }
+  .intro a { color: var(--accent-gold); text-decoration: underline; }
+  .class-section { margin-bottom: var(--space-3); }
+  .build-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-2);
+  }
+  .build-card {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    grid-template-rows: auto auto auto;
+    align-items: center;
+    gap: 0 0.5rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-sm);
+    padding: var(--space-2);
+    color: var(--text);
+  }
+  .build-card:hover { border-color: var(--accent-rust-bright); text-decoration: none; }
+  .tier-badge {
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 700;
+    color: var(--bg); border-radius: var(--radius-sm);
+  }
+  .build-name { font-family: var(--font-display); grid-column: 2; }
+  .build-meta { grid-column: 2; font-size: 0.82rem; color: var(--text-faint); font-family: var(--font-mono); }
+  .build-cost { grid-column: 2; font-size: 0.82rem; color: var(--text-faint); font-family: var(--font-mono); }
+</style>
