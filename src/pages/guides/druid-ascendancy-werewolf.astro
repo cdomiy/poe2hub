@@ -1,0 +1,314 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import FaqAccordion from "../../components/FaqAccordion.astro";
+
+const faqs = [
+  {
+    q: "Is Oracle better than Shaman for Werewolf Druid?",
+    a: "For most Werewolf players, Oracle offers stronger long-term scaling because Forced Outcome guarantees crits on every hit and Entwined Realities lets you cherry-pick powerful notables from distant tree regions. However, Shaman provides immediate melee value through Furious Wellspring's rage generation, which can feel more intuitive during leveling. The community consensus leans Oracle for endgame pushing and Shaman for a more straightforward melee experience.",
+  },
+  {
+    q: "Can I use both Bear and Werewolf skills on the same Druid?",
+    a: "Yes. Druid shapeshifting is skill-driven — casting a Bear skill (Maul, Furious Slam, Rampage) shifts you into Bear form, while casting a Werewolf skill (Pounce, Lunar Blessing) shifts you into Wolf form. Many Shaman Bear builds incorporate Pounce specifically for its mobility and Mark for Death effect. Oracle Werewolf builds sometimes use Bear skills like Maul for rage generation.",
+  },
+  {
+    q: "What changed for Druid Ascendancies in Patch 0.5?",
+    a: "The biggest change affects Shaman: skills that previously had no resource cost now have a base cost of 0, meaning they gain additional costs from modifiers like Furious Wellspring's added rage cost. This made Herald of Ice and other triggered skills consume rage, which disrupted some Shaman builds. Oracle was relatively unaffected. Both ascendancies also benefit from the new Rune and Archon systems introduced in 0.5.",
+  },
+  {
+    q: "Do I need unique items for Werewolf Druid to work?",
+    a: "No. Both Oracle and Shaman Werewolf builds can function on rare gear alone. The build's core damage comes from shapeshifting skill interactions and ascendancy passives, not chase uniques. That said, items like Defiance of Destiny, Polcirkeln, and Ngamahu's Chosen provide significant power spikes when you can afford them.",
+  },
+];
+---
+<SiteLayout
+  title="PoE2 Druid Ascendancy for Werewolf — Oracle vs Shaman in Patch 0.5"
+  description="Which Druid ascendancy is best for Werewolf in Path of Exile 2? Compare Oracle and Shaman for Patch 0.5 Werewolf builds — ascendancy nodes, rage mechanics, community consensus, and build recommendations."
+>
+  <p class="version-flag">Patch 0.5.4b · Updated July 2026</p>
+
+  <h1>PoE2 Druid Ascendancy for Werewolf — Oracle vs Shaman in Patch 0.5</h1>
+
+  <p class="intro">
+    Choosing the right <strong>PoE2 druid ascendancy for werewolf</strong> builds is the single most impactful decision you'll make after completing the Ascendancy Trials. The Druid's two ascendancies — Oracle and Shaman — take the Werewolf form in fundamentally different directions. Oracle turns your wolf into a precision scaling engine with guaranteed crits and flexible tree access, while Shaman channels raw rage into relentless melee pressure. This guide breaks down every ascendancy node, explains how each one interacts with Werewolf skills specifically, and gives you a data-backed recommendation based on your goals — whether that's a smooth league start, SSF progression, or pushing pinnacle endgame content.
+  </p>
+
+  <h2 id="what-ascendancy-means">What "Druid Ascendancy for Werewolf" Actually Means</h2>
+
+  <p>
+    In Path of Exile 2, the Druid class shifts between human, Bear, and Werewolf forms depending on which skill you cast. There's no "Werewolf ascendancy" — both Oracle and Shaman apply universally to all forms. The question is which ascendancy's passive bonuses synergize best with the Werewolf playstyle: fast melee attacks, high attack speed, mobility through <strong>Pounce</strong>, and sustained physical DPS.
+  </p>
+
+  <p>
+    The Werewolf form specializes in rapid melee chains, strong physical damage, and fluid movement between enemy packs. Unlike the Bear form's deliberate slams and rage-based skills, the Werewolf rewards maintaining offensive momentum — hitting fast and often rather than setting up big individual strikes. This distinction matters because <strong>Oracle</strong> amplifies per-hit efficiency (through crits and scaling), while <strong>Shaman</strong> sustains the rage economy that keeps your werewolf skills flowing without interruption.
+  </p>
+
+  <p>
+    Before choosing, understand that this decision is permanent for the character — you cannot respec ascendancy in PoE2. You'll need to be certain before committing. See our <a href="/getting-started/class-guide/druid/">Druid class overview</a> for the broader context of how shapeshifting mechanics work.
+  </p>
+
+  <h2 id="oracle-ascendancy">Oracle Ascendancy — The Werewolf's Scaling Engine</h2>
+
+  <p>
+    Oracle rewards players who want to optimize every layer of their character. For the <strong>PoE2 druid ascendancy for werewolf</strong> build, Oracle provides four key advantages that compound as your gear improves.
+  </p>
+
+  <h3>Key Oracle Nodes for Werewolf</h3>
+
+  <p>
+    <strong>Forced Outcome</strong> — Guarantees a critical strike on every cast. For Werewolf builds using triggered or repeated attacks, this means every proc lands at maximum damage. Community builder Ruetoo's Oracle BLS Autobomber demonstrates this principle: Forced Outcome makes the entire crit stat effectively "solved," freeing up gear affixes and tree points for defensive layers or raw damage scaling. <span class="data-source">Source: <a href="https://mobalytics.gg/poe-2/profile/ruetoo/builds/oracle-bls-autobomber" target="_blank" rel="noopener">Mobalytics — Oracle BLS Autobomber</a></span>
+  </p>
+
+  <p>
+    <strong>Entwined Realities</strong> — Lets you allocate notable passives from other class starting regions without traveling there. For Werewolf Druids with extended passive trees (common in strength-stacking or spirit-stacking variants), this effectively gives you 2+ "free" powerful notables. Build makers report taking notables like <em>Anger Management</em>, <em>Powerful Casting</em>, and <em>Limitless Pursuit</em> through this node — options completely inaccessible to Shaman.
+  </p>
+
+  <p>
+    <strong>Against the Darkness</strong> — When positioned near the Monk tree region, this node can provide up to 32% damage as extra Lightning and 24% increased Strength, which directly amplifies Werewolf physical damage through added elemental scaling and raw attribute bonuses.
+  </p>
+
+  <p>
+    <strong>Eternal Rage</strong> (shared path) — Provides rage generation without the added rage cost that makes Shaman's Furious Wellspring controversial. Multiple forum posters note that "with Oracle you get nearly as much rage, 2 extra passives and saving passives from pathing and guaranteed crits" compared to Shaman. <span class="data-source">Source: <a href="https://www.pathofexile.com/forum/view-thread/3955134" target="_blank" rel="noopener">Official PoE2 Forums — "Shaman needs a complete rework"</a></span>
+  </p>
+
+  <h3>When Oracle Shines for Werewolf</h3>
+
+  <p>
+    Oracle is the stronger pick when your Werewolf build relies on any of these mechanics:
+  </p>
+
+  <ul>
+    <li><strong>Triggered damage</strong> (Cast on Critical, Cast on Elemental Ailment) — Forced Outcome guarantees the trigger fires on crit</li>
+    <li><strong>Crit scaling</strong> — You want crit multi and crit chance gear to actually matter</li>
+    <li><strong>Extended passive trees</strong> — Strength or Spirit stacking that reaches distant notables</li>
+    <li><strong>Endgame pushing</strong> — Pinnacle bosses, Delirious maps, where consistency beats burst</li>
+    <li><strong>SSF</strong> — Less gear-dependent because Forced Outcome replaces crit investment</li>
+  </ul>
+
+  <p>
+    The Oracle Werewolf path requires more build knowledge to execute well, but scales higher with investment. Raxxanterax's Plant Oracle Druid demonstrates this principle in a different Druid archetype — the "1 button" comfort of Forced Outcome's guaranteed crits carries through to Werewolf variants as well. <span class="data-source">Source: <a href="https://mobalytics.gg/poe-2/builds/plant-druid-oracle-endgame-guide" target="_blank" rel="noopener">Mobalytics — Raxx's Plant Oracle</a></span>
+  </p>
+
+  <h2 id="shaman-ascendancy">Shaman Ascendancy — The Melee Powerhouse (With Caveats)</h2>
+
+  <p>
+    Shaman embraces the Druid's primal identity. Its bonuses directly reinforce shapeshifting and rage-based melee combat, which makes it the more intuitive pick for players who just want to transform into a Werewolf and maul things. However, Patch 0.5 introduced a significant mechanical change that affects Shaman's core value proposition.
+  </p>
+
+  <h3>Key Shaman Nodes for Werewolf</h3>
+
+  <p>
+    <strong>Furious Wellspring</strong> — The centerpiece Shaman node. It provides constant rage regeneration, which lets you sustain Werewolf and Bear skills that consume rage (Maul, Furious Slam, Rampage, Walking Calamity) for extended periods. This is the primary reason players choose Shaman over Oracle — the ability to use <strong>Rampage</strong> and <strong>Walking Calamity</strong> much more frequently. Ronarray's Shaman Bear Druid guide notes: "after reaching Furious Wellspring we will be able to use Rampage much more often which should fix the speed issues that Druid might have." <span class="data-source">Source: <a href="https://mobalytics.gg/poe-2/builds/bear-druid-build-league-starter-to-endgame" target="_blank" rel="noopener">Mobalytics — Ronarray's Shaman Bear</a></span>
+  </p>
+
+  <p>
+    <strong>Druidic Champion</strong> — Provides bonus damage scaling that synergizes with physical attack builds. It's on the path to Furious Wellspring, so you pick it up automatically.
+  </p>
+
+  <p>
+    <strong>Reactive Growth</strong> — Passive defensive bonus that works in any form. Take it and forget it — it provides flat life recovery that helps sustain during mapping.
+  </p>
+
+  <p>
+    <strong>Turning of the Seasons</strong> — Additional passive DPS through elemental interactions. Less impactful for pure physical Werewolf builds but valuable for hybrid cold/physical variants.
+  </p>
+
+  <h3>The Patch 0.5 Rage Cost Controversy</h3>
+
+  <p>
+    Here's the critical caveat that many guides gloss over: Patch 0.5 changed how zero-cost skills interact with added cost modifiers. Skills like Herald of Ice that previously had no resource cost now have a base cost of 0 — meaning Furious Wellspring's added rage cost applies to them. This means triggered and automated skills now consume rage, which can drain your rage pool faster than you generate it.
+  </p>
+
+  <p>
+    The community reaction has been sharp. As one forum poster summarized: "Furious Wellspring isn't that good at all, due to having to take a spell damage node first and then the added rage cost to everything and not adding that much to maximum rage... The only reason to use Shaman is a stepping stone to Oracle." While this is overstated — several successful Shaman endgame builds exist — the underlying issue is real. Builds that rely heavily on triggered skills (Herald of Ice explosions, Cast on Critical setups) may find rage consumption unsustainable on Shaman. <span class="data-source">Source: <a href="https://www.pathofexile.com/forum/view-thread/3955134" target="_blank" rel="noopener">Official PoE2 Forums — Shaman rework discussion</a></span>
+  </p>
+
+  <p>
+    For pure Werewolf melee builds that don't rely on triggered effects, this issue is less severe. CaptainLance9's Meteor Bear Shaman works around it by using <strong>Rage III</strong> support on Maul and carefully managing which skills share the rage pool. The build remains endgame-viable, but it requires more attention to resource management than Oracle variants. <span class="data-source">Source: <a href="https://mobalytics.gg/poe-2/builds/meteor-bear-druid" target="_blank" rel="noopener">Mobalytics — CaptainLance9's Meteor Bear Shaman</a></span>
+  </p>
+
+  <h2 id="oracle-vs-shaman">Oracle vs Shaman for Werewolf — Direct Comparison</h2>
+
+  <p>
+    For players deciding on a <strong>PoE2 druid ascendancy for werewolf</strong> build, here's how the two options compare across the dimensions that matter most:
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Dimension</th>
+        <th>Oracle</th>
+        <th>Shaman</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Early leveling feel</td>
+        <td>Slower until Forced Outcome (2nd lab)</td>
+        <td>Immediately better — rage fuels early melee</td>
+      </tr>
+      <tr>
+        <td>League starter viability</td>
+        <td>Good — less gear-dependent with guaranteed crits</td>
+        <td>Good — rage sustain works on cheap gear</td>
+      </tr>
+      <tr>
+        <td>Crit investment needed</td>
+        <td>Minimal (Forced Outcome solves it)</td>
+        <td>Full — need gear + tree investment</td>
+      </tr>
+      <tr>
+        <td>Rage generation</td>
+        <td>Adequate via Eternal Rage + tree</td>
+        <td>Strong via Furious Wellspring</td>
+      </tr>
+      <tr>
+        <td>Rage cost drawback</td>
+        <td>None — no added costs</td>
+        <td>Yes — triggered skills drain rage (0.5 change)</td>
+      </tr>
+      <tr>
+        <td>Passive tree flexibility</td>
+        <td>High — Entwined Realities reaches any notable</td>
+        <td>Low — locked to Druid region</td>
+      </tr>
+      <tr>
+        <td>Endgame ceiling</td>
+        <td>Higher — scales with investment indefinitely</td>
+        <td>Moderate — capped by rage economy constraints</td>
+      </tr>
+      <tr>
+        <td>Trigger/CoC compatibility</td>
+        <td>Excellent — Forced Outcome guarantees procs</td>
+        <td>Poor — rage drain kills sustain</td>
+      </tr>
+      <tr>
+        <td>Playstyle complexity</td>
+        <td>Higher — more optimization decisions</td>
+        <td>Lower — more straightforward melee</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Recommendation by Player Goal</h3>
+
+  <p>
+    <strong>League Starter:</strong> Both work. If you plan to push into red maps and eventually respec or reroll, Shaman gives a smoother first 50 levels. If you're committing to this character long-term, Oracle's superior scaling makes the slower start worthwhile.
+  </p>
+
+  <p>
+    <strong>SSF (Solo Self-Found):</strong> Oracle. Forced Outcome removes the need for crit gear that you can't reliably craft in SSF. You can focus all gear affixes on raw damage and defenses.
+  </p>
+
+  <p>
+    <strong>Pinnacle Bosses:</strong> Oracle. Guaranteed crits on every hit provide the consistent DPS needed for sustained boss encounters where rage management becomes a liability.
+  </p>
+
+  <p>
+    <strong>Fast Mapping / Speed Clear:</strong> Shaman, with caveats. Furious Wellspring enables more frequent Rampage usage for zooming through maps. But you must build around the rage cost issue — avoid Herald of Ice explosions if they drain your pool.
+  </p>
+
+  <p>
+    <strong>Werewolf + Bear Hybrid:</strong> Shaman. If you're building a character that uses both Bear skills (Maul, Rampage, Walking Calamity) and Werewolf skills (Pounce, Lunar Blessing), Shaman's rage bonuses apply to both forms equally.
+  </p>
+
+  <h2 id="werewolf-skills">Werewolf Core Skills and How Each Ascendancy Changes Them</h2>
+
+  <p>
+    Understanding how your <strong>PoE2 druid ascendancy for werewolf</strong> choice affects individual skills is essential for making the right pick. Here are the key Werewolf-form and hybrid skills, and what changes with each ascendancy.
+  </p>
+
+  <h3>Pounce</h3>
+
+  <p>
+    The signature Werewolf mobility and engagement skill. Pounce leaps forward, transforms into wolf form, and applies <strong>Mark for Death</strong> on impact — a damage multiplier that makes your subsequent hits significantly harder. Both ascendancies use Pounce identically, but Oracle's Forced Outcome can guarantee a crit on the Pounce hit itself, amplifying the initial burst. Shaman gains nothing extra from Pounce directly, but the rage generated from the hit feeds into Furious Wellspring's sustain loop.
+  </p>
+
+  <h3>Maul (Bear/Werewolf Hybrid)</h3>
+
+  <p>
+    Technically a Bear-form skill, but many Werewolf builds use Maul as a rage generator and follow-up after Pounce. With Oracle, Maul benefits from guaranteed crits and the extra damage scaling from distant notables accessed via Entwined Realities. With Shaman, Maul generates rage more reliably thanks to Furious Wellspring, and Druidic Champion's bonus damage applies directly. The Rage III support gem is mandatory on Shaman to offset the added rage cost from Furious Wellspring — without it, you'll rage-starve your other skills.
+  </p>
+
+  <h3>Furious Slam</h3>
+
+  <p>
+    The big Bear AoE slam. Oracle makes Furious Slam crit consistently, which is especially valuable for triggering on-crit effects. Shaman ensures you always have the rage to use it — the classic complaint about Bear/Werewolf builds is running out of rage mid-rotation, and Furious Wellspring directly addresses this. For Werewolf builds that use Furious Slam as a pack clear tool after Pounce engages, Shaman's rage sustain keeps the rotation flowing.
+  </p>
+
+  <h3>Rampage</h3>
+
+  <p>
+    The channeling skill that defines fast Bear Druid mapping — sprint forward while slamming everything around you. Rampage is where Shaman's advantage is most visible. Furious Wellspring enables near-continuous Rampage uptime, and Ronarray's Shaman Bear Druid reaches 120%+ movement speed during Rampage. Oracle can use Rampage too, but rage generation is less reliable, leading to more frequent downtime. If your Werewolf build heavily features Rampage, Shaman is the pragmatic choice.
+  </p>
+
+  <h3>Walking Calamity (Tier 13, Level 52+)</h3>
+
+  <p>
+    The endgame Bear skill that rains meteors while moving — essentially a walking natural disaster. Both Meteor Bear Shaman builds (CaptainLance9 and Ronarray) use this as their endgame DPS engine. Walking Calamity requires 50 Glory to activate, and Furious Wellspring's rage generation feeds Glory generation, making the Shaman-to-Walking Calamity pipeline very efficient. Oracle can use Walking Calamity too, but needs external Glory generation (Ferocious Roar + Raging Cry combos), which adds complexity. <span class="data-source">Source: <a href="https://mobalytics.gg/poe-2/builds/meteor-bear-druid" target="_blank" rel="noopener">Mobalytics — Meteor Bear Shaman</a></span>
+  </p>
+
+  <h3>Wolf Pack and Lunar Blessing</h3>
+
+  <p>
+    <strong>Wolf Pack</strong> summons wolf companions that fight alongside you, and <strong>Lunar Blessing</strong> provides an offensive buff while in Werewolf form. These are pure Werewolf-form skills that work identically with both ascendancies — neither Oracle nor Shaman has specific interactions that modify these skills. Choose them based on your build's spirit budget and whether you want companion damage supplementing your melee.
+  </p>
+
+  <p>
+    For detailed skill interactions and passive tree paths, see our <a href="/builds/druid/oracle/">Oracle Druid build guide</a> and <a href="/builds/druid/shaman/">Shaman Druid build guide</a>.
+  </p>
+
+  <h2 id="conclusion">Conclusion — Which Druid Ascendancy for Werewolf Should You Pick?</h2>
+
+  <p>
+    There's no universal answer, but the data and community consensus point clearly in one direction for most Werewolf-focused builds:
+  </p>
+
+  <p>
+    <strong>Pick Oracle if</strong> you want the stronger long-term character. Forced Outcome's guaranteed crits, Entwined Realities' passive tree flexibility, and the absence of Patch 0.5's rage cost penalty make Oracle the safer and higher-ceiling choice for dedicated Werewolf builds. This is especially true if you plan to use triggered damage, push pinnacle content, or play SSF.
+  </p>
+
+  <p>
+    <strong>Pick Shaman if</strong> you prioritize immediate melee feel and fast mapping. Furious Wellspring's rage sustain makes Rampage and Walking Calamity available more often, which translates to faster map clears and a more straightforward playstyle. Just be aware of the 0.5 rage cost changes and build around them — avoid Herald of Ice on Shaman unless you've tested the rage drain.
+  </p>
+
+  <p>
+    <strong>The community verdict:</strong> For Werewolf/Melee Druid specifically, forum discussion tilts toward Oracle as the "correct" long-term pick, with Shaman described as a "stepping stone" that feels better in the first 50 levels but doesn't scale as well. However, this consensus comes from min-maxing endgame pushers — if you're a casual player who values fun and smooth mapping over ceiling optimization, Shaman is a perfectly valid and enjoyable choice.
+  </p>
+
+  <p>
+    Both ascendancies can clear all current content. Both can league start. The gap between them is a matter of ceiling and comfort, not viability. Pick the one that matches how you want to play the game.
+  </p>
+
+  <FaqAccordion faqs={faqs} />
+</SiteLayout>
+
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+  }
+  th, td {
+    padding: 0.6rem 0.8rem;
+    text-align: left;
+    border: 1px solid var(--border-subtle);
+  }
+  th {
+    background: var(--surface-raised);
+    font-weight: 600;
+  }
+  tr:hover td {
+    background: var(--surface-raised);
+  }
+  .data-source {
+    font-size: 0.82rem;
+    color: var(--text-faint);
+    display: block;
+    margin-top: 0.3rem;
+  }
+  h3 {
+    margin-top: 1.5rem;
+  }
+</style>
